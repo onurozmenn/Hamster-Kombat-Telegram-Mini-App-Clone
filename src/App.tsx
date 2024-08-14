@@ -100,21 +100,25 @@ const App: React.FC = () => {
 
     setPoints(points + pointsToAdd);
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
-    
     WebApp.CloudStorage.setItem("coin", points.toString());
+    console.log("kaydedildi " + points.toString());
   };
   const getPoints = () =>{ 
-    WebApp.CloudStorage.getItems(["coin"], (err, value) => {
+    WebApp.CloudStorage.getItems(["coin","firstTime?"], (err, value) => {
       if (err || !value) {
         console.log("blabla" + err);
       }
-      console.log(value);
-  
+      console.log(value![0] + value![1]);
+      if(isNaN(parseInt(value![1].toString())) || value![1].toString() !== "1"){
+        WebApp.CloudStorage.setItem("firstTime?", "1");
+        WebApp.CloudStorage.setItem("coin", "0");
+      }
+      
       // Gelen değeri kontrol edin
-      if(isNaN(parseInt(value!.toString()))){
+      if(isNaN(parseInt(value![0].toString()))){
         setPoints(0);
       }else{
-        setPoints(parseInt(value!.toString()))
+        setPoints(parseInt(value![0].toString()))
       }
     });
   }

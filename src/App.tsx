@@ -164,6 +164,8 @@ const App: React.FC = () => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
       setPoints(prevPoints => prevPoints + pointsPerSecond);
+      WebApp.CloudStorage.setItem("coin", points.toString());
+      console.log("kaydedildi " + points.toString());
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);

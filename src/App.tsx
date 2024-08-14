@@ -108,10 +108,11 @@ const App: React.FC = () => {
       if (err || !value) {
         console.log(err);
         WebApp.CloudStorage.setItem("firstTime", "0");
+        console.log("hata firsttime 1 ");
         
       }
       if(isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1"){
-
+console.log("firsttime 1 coin 0 oldu");
         WebApp.CloudStorage.setItem("firstTime", "1");
 
         WebApp.CloudStorage.setItem("coin", "0");
@@ -120,9 +121,11 @@ const App: React.FC = () => {
       
       // Gelen değeri kontrol edin
       if(isNaN(parseInt(value!["coin"].toString()))){
+        console.log("coin 0 oldu");
         setPoints(0);
       }else{
         setPoints(parseInt(value!["coin"].toString()))
+        console.log("coin "+(parseInt(value!["coin"].toString()))+" oldu");
       }
     });
   }

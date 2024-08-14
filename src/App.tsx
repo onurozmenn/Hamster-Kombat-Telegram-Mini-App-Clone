@@ -106,7 +106,8 @@ const App: React.FC = () => {
   const getPoints = () =>{ 
     WebApp.CloudStorage.getItems(["coin","firstTime?"], (err, value) => {
       if (err || !value) {
-        console.log("blabla" + err);
+        console.log(err);
+        WebApp.CloudStorage.setItem("firstTime?", "0");
       }
       console.log(value![0] + value![1]);
       if(isNaN(parseInt(value![1].toString())) || value![1].toString() !== "1"){

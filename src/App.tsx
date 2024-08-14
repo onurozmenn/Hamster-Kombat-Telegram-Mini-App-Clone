@@ -74,7 +74,7 @@ const App: React.FC = () => {
 
     return `${paddedHours}:${paddedMinutes}`;
   };
-
+  
   useEffect(() => {
     const updateCountdowns = () => {
       setDailyRewardTimeLeft(calculateTimeLeft(0));
@@ -103,32 +103,32 @@ const App: React.FC = () => {
     WebApp.CloudStorage.setItem("coin", points.toString());
     console.log("kaydedildi " + points.toString());
   };
-  const getPoints = () =>{ 
-    WebApp.CloudStorage.getItems(["coin","firstTime"], async (err, value) =>  {
-      if (err || !value) {
-        console.log(err);
-        WebApp.CloudStorage.setItem("firstTime", "0");
-        console.log("hata firsttime 1 ");
-        
-      }
-      if(isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1"){
-      console.log("firsttime 1 coin 0 oldu");
-        WebApp.CloudStorage.setItem("firstTime", "1");
 
-        WebApp.CloudStorage.setItem("coin", "0");
-
-      }
+  WebApp.CloudStorage.getItems(["coin","firstTime"], async (err, value) =>  {
+    if (err || !value) {
+      console.log(err);
+      WebApp.CloudStorage.setItem("firstTime", "0");
+      console.log("hata firsttime 1 ");
       
-      // Gelen değeri kontrol edin
-      if(isNaN(parseInt(value!["coin"].toString()))){
-        console.log("asd"+value!["coin"].toString());
-        setPoints(0);
-      }else{
-        setPoints(parseInt(value!["coin"].toString()))
-        console.log("asdasd"+value!["coin"].toString());
-      }
-    });
-  }
+    }
+    if(isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1"){
+    console.log("firsttime 1 coin 0 oldu");
+      WebApp.CloudStorage.setItem("firstTime", "1");
+
+      WebApp.CloudStorage.setItem("coin", "0");
+
+    }
+    
+    // Gelen değeri kontrol edin
+    if(isNaN(parseInt(value!["coin"].toString()))){
+      console.log("asd"+value!["coin"].toString());
+      setPoints(0);
+    }else{
+      setPoints(parseInt(value!["coin"].toString()))
+      console.log("asdasd"+value!["coin"].toString());
+    }
+  });
+  
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
   };

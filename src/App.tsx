@@ -105,11 +105,13 @@ const App: React.FC = () => {
   };
   const getPoints = () =>{ 
     WebApp.CloudStorage.getItems(["coin"], (err,value) =>{
-    if(err || !value)
-      console.log(err);
-     var tempvalue = (value == null)?0:value;
-    setPoints(parseInt(tempvalue!.toString()));
-   });
+      if(err || !value)
+        console.log(err);
+      console.log(value);
+      var tempvalue = (value == null)?0:value;
+      console.log(tempvalue);
+      setPoints(parseInt(tempvalue!.toString()));
+    });
   }
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));

@@ -106,7 +106,7 @@ const App: React.FC = () => {
   const getPoints = () =>{ 
     WebApp.CloudStorage.getItems(["coin","firstTime"], (err, value) => {
       value = JSON.parse(value!.toString());
-      console.log(value);
+      console.log("value burada: "+value);
       if (err || !value) {
         console.log(err);
         WebApp.CloudStorage.setItem("firstTime", "0");

@@ -122,11 +122,13 @@ if (!flag) {
     
     // Gelen değeri kontrol edin
     if (isNaN(parseInt(value!["coin"].toString()))) {
-      console.log("asd" + value!["coin"].toString());
       setPoints(0);
+      setFlag(true);
+      console.log("asd" + value!["coin"].toString());
     } else {
       setPoints(parseInt(value!["coin"].toString()));
-      console.log("asdasda" + value!["coin"].toString());
+      setFlag(true);
+      console.log("asdasda AAA" + value!["coin"].toString());
     }
 
     // Fonksiyon çalıştırıldıktan sonra bayrağı ayarla

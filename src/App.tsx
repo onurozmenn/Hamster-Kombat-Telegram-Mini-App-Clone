@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Hamster from './icons/Hamster';
@@ -7,6 +8,7 @@ import Settings from './icons/Settings';
 import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
+import WebApp from '@twa-dev/sdk';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -34,6 +36,15 @@ const App: React.FC = () => {
     100000000,// GrandMaster
     1000000000// Lord
   ];
+
+  interface UserData{
+    id:number;
+    first_name:string;
+    last_name?:string;
+    username?:string;
+    language_code:string;
+    is_premium?:boolean;
+  }
 
   const [levelIndex, setLevelIndex] = useState(6);
   const [points, setPoints] = useState(22749365);
@@ -130,6 +141,12 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [profitPerHour]);
 
+  const [userData, setUserData] = useState<UserData | null>(null)
+  useEffect(()=>{
+    if(WebApp.initDataUnsafe.user)
+      setUserData(WebApp.initDataUnsafe.user as UserData)
+  },[])
+
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
@@ -139,7 +156,8 @@ const App: React.FC = () => {
               <Hamster size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
-              <p className="text-sm">Nikandr (CEO)</p>
+            <p className="text-sm">{userData?.first_name} ({userData?.id})</p>
+            <p className="text-sm">{userData?.last_name} ({userData?.username})</p>
             </div>
           </div>
           <div className="flex items-center justify-between space-x-4 mt-1">

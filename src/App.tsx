@@ -51,7 +51,7 @@ const App: React.FC = () => {
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 1111;
   const profitPerHour = 126420;
-
+  var flag = false;
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
@@ -104,15 +104,14 @@ const App: React.FC = () => {
     console.log("kaydedildi " + points.toString());
   };
 
-  // Fonksiyonun sadece bir kere çalıştırıldığını kontrol etmek için bir bayrak kullan
-const isFunctionAlreadyRun = localStorage.getItem("functionAlreadyRun");
 
-if (!isFunctionAlreadyRun) {
+if (!flag) {
   WebApp.CloudStorage.getItems(["coin", "firstTime"], async (err, value) => {
     if (err || !value) {
       console.log(err);
       WebApp.CloudStorage.setItem("firstTime", "0");
       console.log("hata firsttime 1 ");
+      return;
     }
 
     if (isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1") {
@@ -131,7 +130,8 @@ if (!isFunctionAlreadyRun) {
     }
 
     // Fonksiyon çalıştırıldıktan sonra bayrağı ayarla
-    localStorage.setItem("functionAlreadyRun", "true");
+    
+    flag = true;
   });
 }
 

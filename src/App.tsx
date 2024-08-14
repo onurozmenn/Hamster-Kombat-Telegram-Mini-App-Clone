@@ -121,6 +121,7 @@ console.log("firsttime 1 coin 0 oldu");
       
       // Gelen değeri kontrol edin
       if(isNaN(parseInt(value!["coin"].toString()))){
+        console.log("coin nan + "+(parseInt(value!["coin"].toString()))+" + oldu");
         console.log("coin 0 oldu");
         setPoints(0);
       }else{

@@ -111,11 +111,11 @@ const App: React.FC = () => {
         
       }
       if(isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1"){
-        console.log("5");
+
         WebApp.CloudStorage.setItem("firstTime", "1");
-        console.log("6");
+
         WebApp.CloudStorage.setItem("coin", "0");
-        console.log("7");
+
       }
       
       // Gelen değeri kontrol edin

@@ -122,11 +122,10 @@ const App: React.FC = () => {
       // Gelen değeri kontrol edin
       if(isNaN(parseInt(value!["coin"].toString()))){
         console.log("asd"+value!["coin"].toString());
-        console.log("coin 0 oldu");
         setPoints(0);
       }else{
         setPoints(parseInt(value!["coin"].toString()))
-        console.log("coin "+(parseInt(value!["coin"].toString()))+" oldu");
+        console.log("asdasd"+value!["coin"].toString());
       }
     });
   }

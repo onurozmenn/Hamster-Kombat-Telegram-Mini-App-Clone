@@ -104,30 +104,36 @@ const App: React.FC = () => {
     console.log("kaydedildi " + points.toString());
   };
 
-  WebApp.CloudStorage.getItems(["coin","firstTime"], async (err, value) =>  {
+  // Fonksiyonun sadece bir kere çalıştırıldığını kontrol etmek için bir bayrak kullan
+const isFunctionAlreadyRun = localStorage.getItem("functionAlreadyRun");
+
+if (!isFunctionAlreadyRun) {
+  WebApp.CloudStorage.getItems(["coin", "firstTime"], async (err, value) => {
     if (err || !value) {
       console.log(err);
       WebApp.CloudStorage.setItem("firstTime", "0");
       console.log("hata firsttime 1 ");
-      
     }
-    if(isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1"){
-    console.log("firsttime 1 coin 0 oldu");
+
+    if (isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1") {
+      console.log("firsttime 1 coin 0 oldu");
       WebApp.CloudStorage.setItem("firstTime", "1");
-
       WebApp.CloudStorage.setItem("coin", "0");
-
     }
     
     // Gelen değeri kontrol edin
-    if(isNaN(parseInt(value!["coin"].toString()))){
-      console.log("asd"+value!["coin"].toString());
+    if (isNaN(parseInt(value!["coin"].toString()))) {
+      console.log("asd" + value!["coin"].toString());
       setPoints(0);
-    }else{
-      setPoints(parseInt(value!["coin"].toString()))
-      console.log("asdasda"+value!["coin"].toString());
+    } else {
+      setPoints(parseInt(value!["coin"].toString()));
+      console.log("asdasda" + value!["coin"].toString());
     }
+
+    // Fonksiyon çalıştırıldıktan sonra bayrağı ayarla
+    localStorage.setItem("functionAlreadyRun", "true");
   });
+}
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));

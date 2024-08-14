@@ -101,7 +101,6 @@ const App: React.FC = () => {
     setPoints(points + pointsToAdd);
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
     WebApp.CloudStorage.setItem("coin", points.toString());
-    console.log("kaydedildi " + points.toString());
   };
 
 
@@ -110,12 +109,10 @@ if (!flag) {
     if (err || !value) {
       console.log(err);
       WebApp.CloudStorage.setItem("firstTime", "0");
-      console.log("hata firsttime 1 ");
       return;
     }
 
     if (isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1") {
-      console.log("firsttime 1 coin 0 oldu");
       WebApp.CloudStorage.setItem("firstTime", "1");
       WebApp.CloudStorage.setItem("coin", "0");
     }
@@ -124,15 +121,12 @@ if (!flag) {
     if (isNaN(parseInt(value!["coin"].toString()))) {
       setPoints(0);
       setFlag(true);
-      console.log("asd" + value!["coin"].toString());
     } else {
       setPoints(parseInt(value!["coin"].toString()));
       setFlag(true);
-      console.log("asdasda AAA" + value!["coin"].toString());
     }
 
     // Fonksiyon çalıştırıldıktan sonra bayrağı ayarla
-    console.log(flag);
     setFlag(true);
   });
 }
@@ -175,7 +169,6 @@ if (!flag) {
     }, 1000);
     
     WebApp.CloudStorage.setItem("coin", points.toString());
-    console.log("kaydedildi " + points.toString());
     return () => clearInterval(interval);
   }, [profitPerHour]);
 
@@ -183,7 +176,6 @@ if (!flag) {
   useEffect(()=>{
     if(WebApp.initDataUnsafe.user){
       setUserData(WebApp.initDataUnsafe.user as UserData)
-      console.log(WebApp.initData)
       WebApp.enableClosingConfirmation()
     }
   },[])

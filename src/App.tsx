@@ -9,7 +9,9 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import WebApp from '@twa-dev/sdk';
+console.log("1");
 import { MongoClient} from 'mongodb';
+console.log("12");
 
 const App: React.FC = () => {
   const levelNames = [

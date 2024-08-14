@@ -48,7 +48,6 @@ const App: React.FC = () => {
 
   const [levelIndex, setLevelIndex] = useState(6);
   const [points, setPoints] = useState(22749365);
-  const [flag, setFlag] = useState(false);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 1111;
   const profitPerHour = 126420;
@@ -100,36 +99,9 @@ const App: React.FC = () => {
 
     setPoints(points + pointsToAdd);
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
-    WebApp.CloudStorage.setItem("coin", points.toString());
   };
 
 
-if (!flag) {
-  WebApp.CloudStorage.getItems(["coin", "firstTime"], async (err, value) => {
-    if (err || !value) {
-      console.log(err);
-      WebApp.CloudStorage.setItem("firstTime", "0");
-      return;
-    }
-
-    if (isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1") {
-      WebApp.CloudStorage.setItem("firstTime", "1");
-      WebApp.CloudStorage.setItem("coin", "0");
-    }
-    
-    // Gelen değeri kontrol edin
-    if (isNaN(parseInt(value!["coin"].toString()))) {
-      setPoints(0);
-      setFlag(true);
-    } else {
-      setPoints(parseInt(value!["coin"].toString()));
-      setFlag(true);
-    }
-
-    // Fonksiyon çalıştırıldıktan sonra bayrağı ayarla
-    setFlag(true);
-  });
-}
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
@@ -168,7 +140,6 @@ if (!flag) {
       setPoints(prevPoints => prevPoints + pointsPerSecond);
     }, 1000);
     
-    WebApp.CloudStorage.setItem("coin", points.toString());
     return () => clearInterval(interval);
   }, [profitPerHour]);
 

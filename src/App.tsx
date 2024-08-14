@@ -100,6 +100,9 @@ const App: React.FC = () => {
 
     setPoints(points + pointsToAdd);
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
+    
+    WebApp.CloudStorage.setItem("coin", points.toString());
+    console.log(WebApp.CloudStorage.getItem("coin"));
   };
 
   const handleAnimationEnd = (id: number) => {
@@ -143,8 +146,11 @@ const App: React.FC = () => {
 
   const [userData, setUserData] = useState<UserData | null>(null)
   useEffect(()=>{
-    if(WebApp.initDataUnsafe.user)
+    if(WebApp.initDataUnsafe.user){
       setUserData(WebApp.initDataUnsafe.user as UserData)
+      console.log(WebApp.initData)
+      WebApp.enableClosingConfirmation()
+    }
   },[])
 
   return (

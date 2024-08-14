@@ -11,15 +11,7 @@ import Coins from './icons/Coins';
 import WebApp from '@twa-dev/sdk';
 import { MongoClient} from 'mongodb';
 const uri = "mongodb+srv://telegramapp:5GnrW17BKzke0e8G@telegramapp.s5igv.mongodb.net/Users?retryWrites=true&w=majority&appName=TelegramApp";
-const client = new MongoClient(uri);
-async function run() {
-
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    
-  }
-run();
+new MongoClient(uri);
 const App: React.FC = () => {
   const levelNames = [
     "Bronze",    // From 0 to 4999 coins

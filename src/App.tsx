@@ -87,7 +87,14 @@ const App: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []);
-
+  const getPoints = () =>{ 
+    WebApp.CloudStorage.getItems(["coin"], (err,value) =>{
+    if(err || !value)
+      console.log(err);
+     var tempvalue = value;
+    setPoints(parseInt(tempvalue!.toString()));
+  });
+}
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -102,11 +109,6 @@ const App: React.FC = () => {
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
     
     WebApp.CloudStorage.setItem("coin", points.toString());
-    WebApp.CloudStorage.getItems(["coin"], (err,value) =>{
-      if(err || !value)
-        console.log(err);
-      console.log(value); 
-    });
   };
 
   const handleAnimationEnd = (id: number) => {
@@ -156,7 +158,7 @@ const App: React.FC = () => {
       WebApp.enableClosingConfirmation()
     }
   },[])
-
+  getPoints();
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">

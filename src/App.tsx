@@ -108,7 +108,7 @@ const App: React.FC = () => {
       if(err || !value)
         console.log(err);
       console.log(value);
-      var tempvalue = (value == null)?0:value;
+      var tempvalue = value?0:value;
       console.log(tempvalue);
       setPoints(parseInt(tempvalue!.toString()));
     });

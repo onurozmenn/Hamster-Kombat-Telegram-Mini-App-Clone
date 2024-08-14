@@ -9,6 +9,7 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import WebApp from '@twa-dev/sdk';
+import { MongoClient} from 'mongodb';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -54,7 +55,16 @@ const App: React.FC = () => {
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
-
+  const uri = "mongodb+srv://telegramapp:5GnrW17BKzke0e8G@telegramapp.s5igv.mongodb.net/Users?retryWrites=true&w=majority&appName=TelegramApp";
+  const client = new MongoClient(uri);
+  async function run() {
+  
+      // Connect the client to the server	(optional starting in v4.7)
+      await client.connect();
+      // Send a ping to confirm a successful connection
+      
+    }
+  run();
   const calculateTimeLeft = (targetHour: number) => {
     const now = new Date();
     const target = new Date(now);

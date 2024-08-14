@@ -104,8 +104,8 @@ const App: React.FC = () => {
     console.log("kaydedildi " + points.toString());
   };
   const getPoints = () =>{ 
-    WebApp.CloudStorage.getItems(["coin","firstTime"], (err, value) => {
-      value = JSON.parse(value!.toString());
+    WebApp.CloudStorage.getItems(["coin","firstTime"], async (err, value) =>  {
+      value = JSON.parse( await value!.toString());
       console.log("value burada: "+value);
       if (err || !value) {
         console.log(err);

@@ -114,7 +114,7 @@ const App: React.FC = () => {
         console.log("3");
       }
       console.log("3.5");
-      console.log(value![0]+ ": hata? :" + value![1]);
+      console.log(value+ ": hata? :" + value![1]);
       console.log("4");
       if(isNaN(parseInt(value![1].toString())) || value![1].toString() !== "1"){
         console.log("5");

@@ -104,20 +104,21 @@ const App: React.FC = () => {
     console.log("kaydedildi " + points.toString());
   };
   const getPoints = () =>{ 
-    WebApp.CloudStorage.getItems(["coin","firstTime?"], (err, value) => {
+    WebApp.CloudStorage.getItems(["coin","firstTime"], (err, value) => {
       console.log("0");
       if (err || !value) {
         console.log("1");
         console.log(err);
         console.log("2");
-        WebApp.CloudStorage.setItem("firstTime?", "0");
+        WebApp.CloudStorage.setItem("firstTime", "0");
         console.log("3");
       }
+      console.log("3.5");
       console.log(value![0] + value![1]);
       console.log("4");
       if(isNaN(parseInt(value![1].toString())) || value![1].toString() !== "1"){
         console.log("5");
-        WebApp.CloudStorage.setItem("firstTime?", "1");
+        WebApp.CloudStorage.setItem("firstTime", "1");
         console.log("6");
         WebApp.CloudStorage.setItem("coin", "0");
         console.log("7");

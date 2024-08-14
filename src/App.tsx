@@ -21,7 +21,6 @@ async function run() {
       console.log(data!.toString());
     });
   }
-run();
 const App: React.FC = () => {
   const levelNames = [
     "Bronze",    // From 0 to 4999 coins

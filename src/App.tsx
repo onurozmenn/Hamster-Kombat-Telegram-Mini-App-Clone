@@ -112,7 +112,7 @@ const App: React.FC = () => {
         
       }
       if(isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1"){
-console.log("firsttime 1 coin 0 oldu");
+      console.log("firsttime 1 coin 0 oldu");
         WebApp.CloudStorage.setItem("firstTime", "1");
 
         WebApp.CloudStorage.setItem("coin", "0");
@@ -121,7 +121,7 @@ console.log("firsttime 1 coin 0 oldu");
       
       // Gelen değeri kontrol edin
       if(isNaN(parseInt(value!["coin"].toString()))){
-        console.log("coin nan + "+(parseInt(value!["coin"].toString()))+" + oldu");
+        console.log("asd"+value!["coin"].toString());
         console.log("coin 0 oldu");
         setPoints(0);
       }else{

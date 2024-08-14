@@ -111,10 +111,11 @@ const App: React.FC = () => {
       console.log(value);
   
       // Gelen değeri kontrol edin
-      var tempvalue = isNaN(parseInt(value!.toString())) ? 0 : parseInt(value!.toString());
-  
-      console.log(tempvalue);
-      setPoints(tempvalue);
+      if(isNaN(parseInt(value!.toString()))){
+        setPoints(0);
+      }else{
+        setPoints(parseInt(value!.toString()))
+      }
     });
   }
   const handleAnimationEnd = (id: number) => {

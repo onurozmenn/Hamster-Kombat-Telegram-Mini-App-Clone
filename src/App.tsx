@@ -48,10 +48,10 @@ const App: React.FC = () => {
 
   const [levelIndex, setLevelIndex] = useState(6);
   const [points, setPoints] = useState(22749365);
+  const [flag, setFlag] = useState(false);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 1111;
   const profitPerHour = 126420;
-  var flag = false;
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
@@ -130,8 +130,8 @@ if (!flag) {
     }
 
     // Fonksiyon çalıştırıldıktan sonra bayrağı ayarla
-    
-    flag = true;
+    console.log(flag);
+    setFlag(true);
   });
 }
 

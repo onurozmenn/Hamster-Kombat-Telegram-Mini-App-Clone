@@ -104,7 +104,7 @@ const App: React.FC = () => {
     WebApp.CloudStorage.setItem("coin", points.toString());
     WebApp.CloudStorage.getItems(["coin"], (err,value) =>{
       if(err || !value)
-        return;
+        console.log(err);
       console.log(value); 
     });
   };

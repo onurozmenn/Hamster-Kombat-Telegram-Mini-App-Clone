@@ -104,13 +104,17 @@ const App: React.FC = () => {
     WebApp.CloudStorage.setItem("coin", points.toString());
   };
   const getPoints = () =>{ 
-    WebApp.CloudStorage.getItems(["coin"], (err,value) =>{
-      if(err || !value)
-        console.log(err);
+    WebApp.CloudStorage.getItems(["coin"], (err, value) => {
+      if (err || !value) {
+        console.log("blabla" + err);
+      }
       console.log(value);
-      var tempvalue = !value?0:1;
+  
+      // Gelen değeri kontrol edin
+      var tempvalue = isNaN(parseInt(value!.toString())) ? 0 : parseInt(value!.toString());
+  
       console.log(tempvalue);
-      setPoints(parseInt(tempvalue!.toString()));
+      setPoints(tempvalue);
     });
   }
   const handleAnimationEnd = (id: number) => {

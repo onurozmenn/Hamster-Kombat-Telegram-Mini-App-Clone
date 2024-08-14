@@ -105,14 +105,12 @@ const App: React.FC = () => {
   };
   const getPoints = () =>{ 
     WebApp.CloudStorage.getItems(["coin","firstTime"], async (err, value) =>  {
-      value = JSON.parse( await value!.toString());
-      console.log("value burada: "+value);
       if (err || !value) {
         console.log(err);
         WebApp.CloudStorage.setItem("firstTime", "0");
         
       }
-      if(isNaN(parseInt(value![1].toString())) || value![1].toString() !== "1"){
+      if(isNaN(parseInt(value!["firstTime"].toString())) || value!["firstTime"].toString() !== "1"){
         console.log("5");
         WebApp.CloudStorage.setItem("firstTime", "1");
         console.log("6");
@@ -121,12 +119,10 @@ const App: React.FC = () => {
       }
       
       // Gelen değeri kontrol edin
-      if(isNaN(parseInt(value![0].toString()))){
-        console.log("8");
+      if(isNaN(parseInt(value!["coin"].toString()))){
         setPoints(0);
       }else{
-        console.log("9");
-        setPoints(parseInt(value![0].toString()))
+        setPoints(parseInt(value!["coin"].toString()))
       }
     });
   }

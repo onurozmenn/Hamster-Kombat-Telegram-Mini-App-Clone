@@ -102,7 +102,11 @@ const App: React.FC = () => {
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
     
     WebApp.CloudStorage.setItem("coin", points.toString());
-    console.log(WebApp.CloudStorage.getItems(["coin"]));
+    WebApp.CloudStorage.getItems(["coin"], (err,value) =>{
+      if(err || !value)
+        return;
+      console.log(value); 
+    });
   };
 
   const handleAnimationEnd = (id: number) => {

@@ -10,7 +10,7 @@ import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import WebApp from '@twa-dev/sdk';
 console.log("1");
-import MongoClient from 'mongodb';
+import { MongoClient } from 'mongodb';
 console.log("12");
 
 const App: React.FC = () => {
@@ -57,29 +57,18 @@ const App: React.FC = () => {
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
-  console.log("1");
-  const uri = "mongodb+srv://telegramapp:5GnrW17BKzke0e8G@telegramapp.s5igv.mongodb.net/Users?retryWrites=true&w=majority&appName=TelegramApp";
  
-  console.log("2");
-  const client = new MongoClient.MongoClient(uri);
-  console.log("3");
+  const mongoClient = new MongoClient("mongodb+srv://telegramapp:5GnrW17BKzke0e8G@telegramapp.s5igv.mongodb.net/Users?retryWrites=true&w=majority&appName=TelegramApp");
+
   async function run() {
-    console.log("4");
-    var data;
-    console.log("5");
-      // Connect the client to the server	(optional starting in v4.7)
-      await client.connect();
-      console.log("6");
-      // Send a ping to confirm a successful connection
-      data = await client.db().collection("Users").find({}).toArray().then(()=>{
-        console.log("7");
-        console.log(data!.toString());
-      });
-      console.log("8");
-    }
-    console.log("9");
+
+
+    const data = await mongoClient.db().collection("Users").find({}).toArray()
+    console.log('!!!',data);
+  }
+
   run();
-  console.log("10");
+
   const calculateTimeLeft = (targetHour: number) => {
     const now = new Date();
     const target = new Date(now);

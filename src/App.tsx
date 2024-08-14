@@ -125,10 +125,10 @@ const App: React.FC = () => {
       setPoints(0);
     }else{
       setPoints(parseInt(value!["coin"].toString()))
-      console.log("asdasd"+value!["coin"].toString());
+      console.log("asdasda"+value!["coin"].toString());
     }
   });
-  
+
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
   };

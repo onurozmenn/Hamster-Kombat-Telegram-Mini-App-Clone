@@ -9,9 +9,7 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import WebApp from '@twa-dev/sdk';
-import { MongoClient} from 'mongodb';
-const uri = "mongodb+srv://telegramapp:5GnrW17BKzke0e8G@telegramapp.s5igv.mongodb.net/Users?retryWrites=true&w=majority&appName=TelegramApp";
-new MongoClient(uri);
+
 const App: React.FC = () => {
   const levelNames = [
     "Bronze",    // From 0 to 4999 coins

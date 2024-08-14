@@ -14,17 +14,13 @@ const uri = "mongodb+srv://telegramapp:5GnrW17BKzke0e8G@telegramapp.s5igv.mongod
 const client = new MongoClient(uri);
 async function run() {
   var data;
-  try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-    data = await client.db().collection("Users").find({}).toArray();
-  } finally {
-    console.log(data?.toString());
-    // Ensures that the client will close when you finish/error
-    await client.close();
+    data = await client.db().collection("Users").find({}).toArray().then(()=>{
+      console.log(data!.toString());
+    });
   }
-}
 run();
 const App: React.FC = () => {
   const levelNames = [

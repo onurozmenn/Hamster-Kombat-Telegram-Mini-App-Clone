@@ -10,7 +10,7 @@ import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import WebApp from '@twa-dev/sdk';
 console.log("1");
-import { MongoClient} from 'mongodb';
+import MongoClient from 'mongodb';
 console.log("12");
 
 const App: React.FC = () => {
@@ -61,7 +61,7 @@ const App: React.FC = () => {
   const uri = "mongodb+srv://telegramapp:5GnrW17BKzke0e8G@telegramapp.s5igv.mongodb.net/Users?retryWrites=true&w=majority&appName=TelegramApp";
  
   console.log("2");
-  const client = new MongoClient(uri);
+  const client = new MongoClient.MongoClient(uri);
   console.log("3");
   async function run() {
     console.log("4");

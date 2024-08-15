@@ -8,7 +8,6 @@ import Settings from './icons/Settings';
 import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
-import WebApp from '@twa-dev/sdk';
 import axios from 'axios';
 
 const App: React.FC = () => {

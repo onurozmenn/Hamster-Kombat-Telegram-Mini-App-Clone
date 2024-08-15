@@ -61,7 +61,6 @@ const App: React.FC = () => {
     username?: string;
     coin: number;
   }
-  const [users, setUsers] = useState<User[]>([]);
 
 
   async function run() {

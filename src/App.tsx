@@ -47,7 +47,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
     setUserData(tgData as UserData);
-
+    
   }, [])
   const [loading, setLoading] = useState(true); // Loading state
   const [levelIndex, setLevelIndex] = useState(6);
@@ -162,9 +162,9 @@ const App: React.FC = () => {
         console.error('Error fetching token:', error);
       }
     };
-    createToken();
 
-  }, []);
+    createToken();
+  }, [userData]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -179,7 +179,35 @@ const App: React.FC = () => {
           console.log(response.data);
           setUserData(response.data);
         } catch (error) {
-          console.error('Error fetching user data:', error);
+          if (axios.isAxiosError(error)) {
+            if (error.response?.status === 404) {
+              console.log('User not found');
+              
+              try {
+                const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
+                  // Göndermek istediğiniz veriler
+                  telegramID: userData?.id,
+                  first_name: userData?.first_name,
+                  username: userData?.username,
+                  language_code: userData?.language_code,
+                },{
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                });
+                console.log(response.data);
+                setUserData(response.data);
+              }catch(error){
+                console.log(error)
+              }finally{
+                console.log("oluştu!");
+              }
+            } else {
+              console.log('An error occurred');
+            }
+          } else {
+            console.log('An unexpected error occurred');
+          }
         } finally {
           setLoading(false); // Loading tamamlandığında loading ekranı kaldırılır
         }

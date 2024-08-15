@@ -150,16 +150,16 @@ const App: React.FC = () => {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchToken = async () => {
+    const createToken = async () => {
       try {
-        const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
+        const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
         setToken(response.data.token);
       } catch (error) {
         console.error('Error fetching token:', error);
       }
     };
 
-    fetchToken();
+    createToken();
   }, []);
 
   useEffect(() => {

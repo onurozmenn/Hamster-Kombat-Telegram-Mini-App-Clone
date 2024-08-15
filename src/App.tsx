@@ -159,20 +159,7 @@ const App: React.FC = () => {
       }
     };
 
-    createToken();
-  }, []);
-
-  useEffect(()=>{
-    const initialFunction = () => {
-      console.log('Uygulamaa ilk açıldığında çalıştı');
-      // Buraya çalışmasını istediğiniz kodu yazabilirsiniz
-    };
-    initialFunction();
-  },[]);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      console.log(token);
+    createToken().then(async()=> {
       if (token) {
         try {
           const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
@@ -186,10 +173,8 @@ const App: React.FC = () => {
           console.error('Error fetching user data:', error);
         }
       }
-    };
-
-    fetchUserData();
-  }, [token]);
+    });
+  }, []);
 
   return (
     <div className="bg-black flex justify-center">

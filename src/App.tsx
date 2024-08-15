@@ -54,6 +54,7 @@ const App: React.FC = () => {
     };
     setUserData(userData);
     setTelegramData(true);
+    console.log("telegram data değişti");
   }, [])
 
   const [userData, setUserData] = useState<UserData | null>(null)
@@ -166,6 +167,7 @@ const App: React.FC = () => {
       try {
         const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
         setToken(response.data.token);
+        console.log("token değişti");
       } catch (error) {
         console.error('Error fetching token:', error);
       }
@@ -175,6 +177,7 @@ const App: React.FC = () => {
   }, [telegramData]);
 
   useEffect(() => {
+    console.log("fetch oynadı");
     const fetchUserData = async () => {
       console.log(userData);
       if (token) {

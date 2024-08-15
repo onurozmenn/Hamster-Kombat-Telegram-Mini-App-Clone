@@ -9,6 +9,7 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
+import fetchUserData from './helpers/UserHelpers';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -158,26 +159,15 @@ const App: React.FC = () => {
         console.error('Error fetching token:', error);
       }
     };
+    createToken();
 
-    createToken().then(async()=> {
-      console.log(token);
-      if (token) {
-        console.log("token");
-        try {
-          console.log("22");
-          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setUserData(response.data);
-          console.log(response.data);
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      }
-    });
   }, []);
+
+  useEffect(() => {
+
+    fetchUserData(token!);
+
+  }, [token]);
 
   return (
     <div className="bg-black flex justify-center">

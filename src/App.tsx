@@ -55,12 +55,6 @@ const App: React.FC = () => {
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
 
-  interface User {
-    telegramID: string;
-    firstname: string;
-    username?: string;
-    coin: number;
-  }
 
 
   async function run() {

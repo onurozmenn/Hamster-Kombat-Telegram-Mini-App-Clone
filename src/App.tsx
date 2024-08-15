@@ -164,7 +164,7 @@ const App: React.FC = () => {
 
   useEffect(()=>{
     const initialFunction = () => {
-      console.log('Uygulama ilk açıldığında çalıştı');
+      console.log('Uygulamaa ilk açıldığında çalıştı');
       // Buraya çalışmasını istediğiniz kodu yazabilirsiniz
     };
     initialFunction();

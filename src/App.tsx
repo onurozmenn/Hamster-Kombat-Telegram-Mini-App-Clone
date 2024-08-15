@@ -9,6 +9,7 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
 const App: React.FC = () => {
   const levelNames = [
     "Bronze",    // From 0 to 4999 coins
@@ -151,8 +152,11 @@ const App: React.FC = () => {
     const login = async () => {
       try {
         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.MpoCGM4ZG7207uWeTtwO38-LT83nnrIRnDkjW81Jtiw";
-        console.log(process.env.JWT_SECRET);
-        console.log(process.env.MONGODB_URI);      
+        console.log(jwt.sign({
+          "sub": "1234567890",
+          "name": "JohnsDoe",
+          "iat": 1516239022
+        }, "1d4ad109f0f3fb7e3f47c177a6dc3f87a78d12008d705c6c4bbd3bcf54654971e4b2331f2cee68cf07136669586ce3424f973f76579b312e8670b8b96ec77c74",{algorithm:'HS256', expiresIn:'1h'}))
         setToken(token);
       } catch (error) {
         console.error('Error logging in:', error);

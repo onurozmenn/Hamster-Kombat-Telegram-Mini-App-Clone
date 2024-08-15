@@ -11,6 +11,7 @@ let token = null;
 let tokenExpiration = null;
 
 app.get('/api/generate-token', (req, res) => {
+  console.log("asdasd");
   // Token'ı sadece bir kez oluşturup 1 saat geçerli olacak şekilde ayarlıyoruz
   if (!token || new Date() > tokenExpiration) {
     const payload = { userId: 123, username: 'exampleUser' };

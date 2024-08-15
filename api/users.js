@@ -29,7 +29,7 @@ export default async function handler(req, res) {
             res.status(200).json(user); // Kullanıcıyı döndür
           } else {
             console.log("asd"+ids);
-            res.status(404).json({ error: `User not found ${ids}` });
+            res.status(404).json({ error: `User not found ${ids}  ++  ${user}` });
           }
         } else {
           // Tüm kullanıcıları döndür

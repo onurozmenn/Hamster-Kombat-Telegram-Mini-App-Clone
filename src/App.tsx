@@ -39,16 +39,22 @@ const App: React.FC = () => {
   ];
 
   interface UserData {
-    id: number;
-    first_name: string;
+    telegramID: number;
+    firstname: string;
     username?: string;
     language_code: string;
   }
   useEffect(() => {
-    const tgData = WebApp.initDataUnsafe.user;
-    setUserData(tgData as UserData);
-    
+    const tgData = WebApp.initDataUnsafe.user;    
+    const userData: UserData = {
+      telegramID: tgData?.id!,
+      firstname: tgData?.first_name!,
+      username: tgData?.username || '',
+      language_code: tgData?.language_code!,
+    };
+    setUserData(userData);
   }, [])
+
   const [loading, setLoading] = useState(true); // Loading state
   const [levelIndex, setLevelIndex] = useState(6);
   const [points, setPoints] = useState(22749365);
@@ -171,7 +177,7 @@ const App: React.FC = () => {
       console.log(userData);
       if (token) {
         try {
-          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids='+userData?.id, {
+          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids='+userData?.telegramID, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -186,8 +192,8 @@ const App: React.FC = () => {
               try {
                 const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
                   // Göndermek istediğiniz veriler
-                  telegramID: userData?.id,
-                  first_name: userData?.first_name,
+                  telegramID: userData?.telegramID,
+                  first_name: userData?.firstname,
                   username: userData?.username,
                   language_code: userData?.language_code,
                 },{
@@ -232,7 +238,7 @@ const App: React.FC = () => {
                 <Hamster size={24} className="text-[#d4d4d4]" />
               </div>
               <div>
-                <p className="text-sm">{userData?.first_name} ({userData?.id})</p>
+                <p className="text-sm">{userData?.firstname} ({userData?.telegramID})</p>
                 <p className="text-sm">{userData?.language_code} ({userData?.username})</p>
               </div>
             </div>

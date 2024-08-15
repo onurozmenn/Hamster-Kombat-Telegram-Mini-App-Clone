@@ -161,12 +161,12 @@ const App: React.FC = () => {
 
     createToken();
   }, []);
-
+  const initialFunction = () => {
+    console.log('Uygulama ilk açıldığında çalıştı');
+    // Buraya çalışmasını istediğiniz kodu yazabilirsiniz
+  };
   useEffect(()=>{
-    const initialFunction = () => {
-      console.log('Uygulama ilk açıldığında çalıştı');
-      // Buraya çalışmasını istediğiniz kodu yazabilirsiniz
-    };
+
 
     initialFunction();
   },[]);

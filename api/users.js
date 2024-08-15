@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     switch (method) {
       case 'GET':
         const { ids } = req.query;
-
+        console.log(ids);
         if (ids) {
           // Belirli bir ID'ye göre kullanıcıyı bul
           const user = await collection.findOne({ telegramID: ids });

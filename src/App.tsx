@@ -152,7 +152,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/generate-token');
+        const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
         setToken(response.data.token);
       } catch (error) {
         console.error('Error fetching token:', error);
@@ -161,7 +161,7 @@ const App: React.FC = () => {
 
     fetchToken();
   }, []);
-  
+
   useEffect(() => {
     const fetchUserData = async () => {
       if (token) {

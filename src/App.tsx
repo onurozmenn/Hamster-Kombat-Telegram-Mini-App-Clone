@@ -160,6 +160,7 @@ const App: React.FC = () => {
     };
 
     createToken().then(async()=> {
+      console.log("thenbaşladı");
       if (token) {
         try {
           const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {

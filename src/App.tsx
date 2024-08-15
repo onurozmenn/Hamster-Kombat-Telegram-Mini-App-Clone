@@ -161,9 +161,16 @@ const App: React.FC = () => {
 
     createToken();
   }, []);
+
   useEffect(()=>{
-    console.log("as");
+    const initialFunction = () => {
+      console.log('Uygulama ilk açıldığında çalıştı');
+      // Buraya çalışmasını istediğiniz kodu yazabilirsiniz
+    };
+
+    initialFunction();
   },[]);
+
   useEffect(() => {
     const fetchUserData = async () => {
       console.log(token);

@@ -151,14 +151,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const login = async () => {
       try {
-        jwt.sign({
-          "sub": "1234567890",
-          "name": "John Doe",
-          "iat": "1516239022"
-        },
-        "1d4ad109f0f3fb7e3f47c177a6dc3f87a78d12008d705c6c4bbd3bcf54654971e4b2331f2cee68cf07136669586ce3424f973f76579b312e8670b8b96ec77c74",
-        { expiresIn: '1h' , algorithm:'HS256'});
-        console.log(token);
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.MpoCGM4ZG7207uWeTtwO38-LT83nnrIRnDkjW81Jtiw";
       
         setToken(token);
       } catch (error) {
@@ -178,6 +171,7 @@ const App: React.FC = () => {
             },
           });
           setUserData(response.data);
+          console.log(response.data);
         } catch (error) {
           console.error('Error fetching user data:', error);
         }

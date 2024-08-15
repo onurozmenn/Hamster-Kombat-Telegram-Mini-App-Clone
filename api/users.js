@@ -26,10 +26,23 @@ export default async function handler(req, res) {
 
     switch (method) {
       case 'GET':
-        const users = await collection.find({}).toArray(); // Verileri çek
-        res.status(200).json(users); // Verileri döndür
+        const { ids } = req.query;
+
+        if (ids) {
+          // Belirli bir ID'ye göre kullanıcıyı bul
+          const user = await collection.findOne({ telegramID: new ObjectId(ids) });
+          
+          if (user) {
+            res.status(200).json(user); // Kullanıcıyı döndür
+          } else {
+            res.status(404).json({ error: 'User not found' });
+          }
+        } else {
+          // Tüm kullanıcıları döndür
+          const users = await collection.find({}).toArray();
+          res.status(200).json(users);
+        }
         break;
-      
       case 'POST':
         const user = req.body; // Gönderilen kullanıcı verilerini al
         await collection.insertOne(user); // Yeni kullanıcı ekle

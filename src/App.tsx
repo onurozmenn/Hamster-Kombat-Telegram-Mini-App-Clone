@@ -41,10 +41,8 @@ const App: React.FC = () => {
   interface UserData{
     id:number;
     first_name:string;
-    last_name?:string;
     username?:string;
     language_code:string;
-    is_premium?:boolean;
   }
   useEffect(()=>{
     const tgData = WebApp.initDataUnsafe.user;
@@ -172,11 +170,12 @@ const App: React.FC = () => {
 
       if (token) {
         try {
-          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
+          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=7418158431', {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
+          console.log(response.data);
           setUserData(response.data);
         } catch (error) {
           console.error('Error fetching user data:', error);
@@ -197,8 +196,7 @@ const App: React.FC = () => {
             </div>
             <div>
             <p className="text-sm">{userData?.first_name} ({userData?.id})</p>
-            <p className="text-sm">{userData?.last_name} ({userData?.username})</p>
-            <p className="text-sm">{userData?.language_code} ({userData?.is_premium})</p>
+            <p className="text-sm">{userData?.language_code} ({userData?.username})</p>
             </div>
           </div>
           <div className="flex items-center justify-between space-x-4 mt-1">

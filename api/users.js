@@ -10,16 +10,9 @@ const client = new MongoClient(process.env.MONGODB_URI, {
 export default async function handler(req, res) {
   const { method } = req;
   
-  // Authorization header'dan JWT token'ı al
-  const token = req.headers['authorization']?.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ error: 'Authorization token required' });
-  }
 
   try {
     // JWT token doğrulama
-    const decoded = jwt.verify(token, process.env.JWT_SECRET, {algorithm:'HS256'});
     await client.connect();
     const database = client.db('Users'); // Veritabanı adı
     const collection = database.collection('Users'); // Koleksiyon adı

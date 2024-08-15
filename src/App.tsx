@@ -53,11 +53,15 @@ const App: React.FC = () => {
       language_code: tgData?.language_code!,
     };
     setUserData(userData);
+    setTelegramData(true);
   }, [])
 
+  const [userData, setUserData] = useState<UserData | null>(null)
+  const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true); // Loading state
-  const [levelIndex, setLevelIndex] = useState(6);
-  const [points, setPoints] = useState(22749365);
+  const [telegramData, setTelegramData] = useState(false); // Loading state
+  const [levelIndex, setLevelIndex] = useState(0);
+  const [points, setPoints] = useState(0);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 1111;
   const profitPerHour = 126420;
@@ -156,8 +160,6 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [profitPerHour]);
 
-  const [userData, setUserData] = useState<UserData | null>(null)
-  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
     const createToken = async () => {
@@ -170,7 +172,7 @@ const App: React.FC = () => {
     };
 
     createToken();
-  }, [userData]);
+  }, [telegramData]);
 
   useEffect(() => {
     const fetchUserData = async () => {

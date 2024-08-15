@@ -30,12 +30,12 @@ export default async function handler(req, res) {
 
         if (ids) {
           // Belirli bir ID'ye göre kullanıcıyı bul
-          const user = await collection.findOne({ telegramID: "7418158431" });
+          const user = await collection.findOne({ telegramID: ids });
           
           if (user) {
             res.status(200).json(user); // Kullanıcıyı döndür
           } else {
-            res.status(404).json({ error: 'User not found' });
+            res.status(405).json({ error: 'User not found' });
           }
         } else {
           // Tüm kullanıcıları döndür

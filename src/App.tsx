@@ -161,9 +161,9 @@ const App: React.FC = () => {
 
     createToken();
   }, []);
-  useLayoutEffect(()=>{
+  useEffect(()=>{
     console.log("as");
-  });
+  },[]);
   useEffect(() => {
     const fetchUserData = async () => {
       console.log(token);

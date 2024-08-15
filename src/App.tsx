@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import './App.css';
 import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter } from './images';
@@ -161,7 +161,9 @@ const App: React.FC = () => {
 
     createToken();
   }, []);
-
+  useLayoutEffect(()=>{
+    console.log("a");
+  });
   useEffect(() => {
     const fetchUserData = async () => {
       console.log(token);

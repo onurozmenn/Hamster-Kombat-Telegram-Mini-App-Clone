@@ -171,7 +171,7 @@ const App: React.FC = () => {
 
       if (token) {
         try {
-          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=7418158431', {
+          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids='+userData?.id, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

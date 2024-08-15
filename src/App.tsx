@@ -151,7 +151,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const login = async () => {
       try {
-        const token = jwt.sign({ id: "1", name: "O" }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ id: "1", name: "O" }, "1d4ad109f0f3fb7e3f47c177a6dc3f87a78d12008d705c6c4bbd3bcf54654971e4b2331f2cee68cf07136669586ce3424f973f76579b312e8670b8b96ec77c74", { expiresIn: '1h' });
         setToken(token);
       } catch (error) {
         console.error('Error logging in:', error);

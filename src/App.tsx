@@ -151,8 +151,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const login = async () => {
       try {
-       // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.MpoCGM4ZG7207uWeTtwO38-LT83nnrIRnDkjW81Jtiw";
-        const token = jwt.sign({ userId: '12345' }, 'your-secret-key', { expiresIn: '1h' });
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.MpoCGM4ZG7207uWeTtwO38-LT83nnrIRnDkjW81Jtiw";
 
         console.log(token); setToken(token);
       } catch (error) {

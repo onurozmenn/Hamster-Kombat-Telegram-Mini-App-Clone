@@ -15,7 +15,7 @@ export default async function handler(req, res) {
       // Token'ı sadece bir kez oluşturup 1 saat geçerli olacak şekilde ayarlıyoruz
       if (!token || new Date() > tokenExpiration) {
         const payload = { userId: 123, username: 'exampleUser' };
-        token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+        token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h', algorithm:'HS256' });
         tokenExpiration = new Date(new Date().getTime() + 3600 * 1000); // 1 saat geçerlilik süresi
       }
 

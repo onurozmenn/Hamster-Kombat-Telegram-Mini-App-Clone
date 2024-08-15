@@ -19,7 +19,7 @@ export default async function handler(req, res) {
 
   try {
     // JWT token doğrulama
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET, {algorithm:'HS256'});
     await client.connect();
     const database = client.db('Users'); // Veritabanı adı
     const collection = database.collection('Users'); // Koleksiyon adı

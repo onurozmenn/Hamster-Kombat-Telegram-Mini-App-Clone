@@ -1,5 +1,10 @@
 import { MongoClient } from 'mongodb';
+const cors = require('cors');
+const app = express();
 
+app.use(cors({
+  origin: 'https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/', // Frontend URL'inizi buraya ekleyin
+}));
 // MongoDB bağlantı dizesini çevresel değişkenlerden alır
 const client = new MongoClient(process.env.MONGODB_URI, {
   useNewUrlParser: true,

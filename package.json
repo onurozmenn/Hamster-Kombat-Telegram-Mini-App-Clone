@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@twa-dev/sdk": "^7.8.0",
+    "axios": "^1.7.4",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

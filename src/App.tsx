@@ -9,6 +9,7 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import WebApp from '@twa-dev/sdk';
+import axios from 'axios';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -158,12 +159,41 @@ const App: React.FC = () => {
   }, [profitPerHour]);
 
   const [userData, setUserData] = useState<UserData | null>(null)
-  useEffect(()=>{
-    if(WebApp.initDataUnsafe.user){
-      setUserData(WebApp.initDataUnsafe.user as UserData)
-      WebApp.enableClosingConfirmation()
-    }
-  },[])
+  const [token, setToken] = useState<string | null>(null);
+  useEffect(() => {
+    const login = async () => {
+      try {
+        const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
+          username: 'Kingbastle',
+          firstname: 'Onur',
+        });
+        setToken(response.data.token);
+      } catch (error) {
+        console.error('Error logging in:', error);
+      }
+    };
+
+    login();
+  }, []);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (token) {
+        try {
+          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUserData(response.data);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [token]);
+
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">

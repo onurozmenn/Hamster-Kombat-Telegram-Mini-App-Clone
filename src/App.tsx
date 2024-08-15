@@ -179,7 +179,7 @@ const App: React.FC = () => {
       console.log(userData);
       if (token) {
         try {
-          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=7418158431', {
+          const response = await axios.get(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -191,24 +191,24 @@ const App: React.FC = () => {
             if (error.response?.status === 404) {
               console.log('User not found');
 
-              //try {
-              //const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
-              // Göndermek istediğiniz veriler
-              //telegramID: userData?.telegramID,
-              //first_name: userData?.firstname,
-              //username: userData?.username,
-              //language_code: userData?.language_code,
-              //},{
-              //  headers: {
-              //    Authorization: `Bearer ${token}`,
-              //  },
-              //});
-              //    console.log(response.data);
-              //  }catch(error){
-              //    console.log(error)
-              //  }finally{
-              //     console.log("oluştu!");
-              //  }
+              try {
+                const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
+                  //Göndermek istediğiniz veriler
+                  telegramID: userData?.telegramID,
+                  first_name: userData?.firstname,
+                  username: userData?.username,
+                  language_code: userData?.language_code,
+                }, {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                  },
+                });
+                console.log(response.data);
+              } catch (error) {
+                console.log(error)
+              } finally {
+                console.log("oluştu!");
+              }
             } else {
               console.log('An error occurred');
             }

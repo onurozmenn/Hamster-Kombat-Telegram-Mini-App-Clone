@@ -9,7 +9,6 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
 const App: React.FC = () => {
   const levelNames = [
     "Bronze",    // From 0 to 4999 coins

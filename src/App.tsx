@@ -8,7 +8,6 @@ import Settings from './icons/Settings';
 import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
-import axios from 'axios';
 import jwt from 'jsonwebtoken';
 const App: React.FC = () => {
   const levelNames = [
@@ -37,14 +36,6 @@ const App: React.FC = () => {
     1000000000// Lord
   ];
 
-  interface UserData{
-    id:number;
-    first_name:string;
-    last_name?:string;
-    username?:string;
-    language_code:string;
-    is_premium?:boolean;
-  }
 
   const [levelIndex, setLevelIndex] = useState(6);
   const [points, setPoints] = useState(22749365);
@@ -146,7 +137,6 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [profitPerHour]);
 
-  const [userData, setUserData] = useState<UserData | null>(null)
   const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
     const login = async () => {
@@ -166,24 +156,6 @@ const App: React.FC = () => {
 
     login();
   }, []);
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (token) {
-        try {
-          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setUserData(response.data);
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      }
-    };
-
-    fetchUserData();
-  }, [token]);
 
   return (
     <div className="bg-black flex justify-center">
@@ -194,9 +166,6 @@ const App: React.FC = () => {
               <Hamster size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
-            <p className="text-sm">{userData?.first_name} ({userData?.id})</p>
-            <p className="text-sm">{userData?.last_name} ({userData?.username})</p>
-            <p className="text-sm">{userData?.language_code} ({userData?.is_premium})</p>
             </div>
           </div>
           <div className="flex items-center justify-between space-x-4 mt-1">

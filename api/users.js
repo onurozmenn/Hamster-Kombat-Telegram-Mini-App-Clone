@@ -1,6 +1,4 @@
 import { MongoClient } from 'mongodb';
-const express = require('express');
-const app = express();
 
 // MongoDB bağlantı dizesini çevresel değişkenlerden alır
 const client = new MongoClient(process.env.MONGODB_URI, {

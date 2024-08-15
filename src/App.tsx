@@ -60,7 +60,7 @@ const App: React.FC = () => {
   const [userData, setUserData] = useState<UserData | null>(null)
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true); // Loading state
-  const [telegramData, setTelegramData] = useState(false); // Loading state
+  const [telegramData, setTelegramData] = useState<Boolean | null>(null);
   const [levelIndex, setLevelIndex] = useState(0);
   const [points, setPoints] = useState(0);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);

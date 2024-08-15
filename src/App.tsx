@@ -149,21 +149,11 @@ const App: React.FC = () => {
   const [userData, setUserData] = useState<UserData | null>(null)
   const [token, setToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    const createToken = async () => {
-      try {
-        const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
-        setToken(response.data.token);
-      } catch (error) {
-        console.error('Error fetching token:', error);
-      }
-    };
 
-    createToken();
-  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
+      setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.MpoCGM4ZG7207uWeTtwO38-LT83nnrIRnDkjW81Jtiw");
       if (token) {
         try {
           const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {

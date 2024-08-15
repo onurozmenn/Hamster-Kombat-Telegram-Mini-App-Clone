@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     switch (method) {
       case 'GET':
         const { ids } = req.query;
-        console.log(ids);
+        console.log("asd"+ids);
         if (ids) {
           // Belirli bir ID'ye göre kullanıcıyı bul
           const user = await collection.findOne({ telegramID: ids });
@@ -28,7 +28,8 @@ export default async function handler(req, res) {
           if (user) {
             res.status(200).json(user); // Kullanıcıyı döndür
           } else {
-            res.status(404).json({ error: 'User not found' });
+            console.log("asd"+ids);
+            res.status(404).json({ error: `User not found ${ids}` });
           }
         } else {
           // Tüm kullanıcıları döndür

@@ -45,7 +45,7 @@ const App: React.FC = () => {
     language_code: string;
   }
   useEffect(() => {
-    const tgData = WebApp.initDataUnsafe.user;    
+    const tgData = WebApp.initDataUnsafe.user;
     const userData: UserData = {
       telegramID: tgData?.id!,
       firstname: tgData?.first_name!,
@@ -190,25 +190,25 @@ const App: React.FC = () => {
           if (axios.isAxiosError(error)) {
             if (error.response?.status === 404) {
               console.log('User not found');
-              
+
               //try {
-                //const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
-                  // Göndermek istediğiniz veriler
-                  //telegramID: userData?.telegramID,
-                  //first_name: userData?.firstname,
-                  //username: userData?.username,
-                  //language_code: userData?.language_code,
-                //},{
-                //  headers: {
-                //    Authorization: `Bearer ${token}`,
-                //  },
-                //});
-            //    console.log(response.data);
-            //  }catch(error){
-            //    console.log(error)
-            //  }finally{
-           //     console.log("oluştu!");
-            //  }
+              //const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
+              // Göndermek istediğiniz veriler
+              //telegramID: userData?.telegramID,
+              //first_name: userData?.firstname,
+              //username: userData?.username,
+              //language_code: userData?.language_code,
+              //},{
+              //  headers: {
+              //    Authorization: `Bearer ${token}`,
+              //  },
+              //});
+              //    console.log(response.data);
+              //  }catch(error){
+              //    console.log(error)
+              //  }finally{
+              //     console.log("oluştu!");
+              //  }
             } else {
               console.log('An error occurred');
             }
@@ -224,12 +224,12 @@ const App: React.FC = () => {
     fetchUserData();
   }, [token]);
 
-  
+
   if (loading) {
     return (
-    <div className="loading-screen">
-      <div className="spinner"></div>
-    </div>
+      <div className="loading-screen">
+        <div className="spinner"></div>
+      </div>
     );
   } else {
     return (

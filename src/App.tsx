@@ -1,4 +1,4 @@
-
+'use client'
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Hamster from './icons/Hamster';
@@ -9,7 +9,6 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import WebApp from '@twa-dev/sdk';
-import { MongoClient } from 'mongodb';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -55,14 +54,24 @@ const App: React.FC = () => {
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
- 
-  const mongoClient = new MongoClient("mongodb+srv://telegramapp:5GnrW17BKzke0e8G@telegramapp.s5igv.mongodb.net/Users?retryWrites=true&w=majority&appName=TelegramApp");
+
+  interface User {
+    telegramID: string;
+    firstname: string;
+    username?: string;
+    coin: number;
+  }
+  const [users, setUsers] = useState<User[]>([]);
+
 
   async function run() {
-
-
-    const data = await mongoClient.db().collection("Users").find({}).toArray()
-    console.log('!!!',data);
+    // MongoDB'den kullanıcıları çek
+    useEffect(() => {
+      fetch('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users')
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error fetching users:', error));
+    }, []);
   }
 
   run();

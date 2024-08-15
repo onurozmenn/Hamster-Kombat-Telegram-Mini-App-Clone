@@ -49,6 +49,7 @@ const App: React.FC = () => {
     setUserData(tgData as UserData);
     
   },[])
+  const [loading, setLoading] = useState(true); // Loading state
   const [levelIndex, setLevelIndex] = useState(6);
   const [points, setPoints] = useState(22749365);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
@@ -179,13 +180,17 @@ const App: React.FC = () => {
           setUserData(response.data);
         } catch (error) {
           console.error('Error fetching user data:', error);
+        } finally {
+          setLoading(false); // Loading tamamlandığında loading ekranı kaldırılır
         }
       }
     };
 
     fetchUserData();
   }, [token]);
-
+  if(loading){
+    return("");
+}else{
   return (
     <div className="bg-black flex justify-center">
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
@@ -195,7 +200,7 @@ const App: React.FC = () => {
               <Hamster size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
-            <p className="text-sm">{userData?.first_name} ({userData?.id})</p>
+            <p className="text-sm">Sana aşığım karımmmm</p>
             <p className="text-sm">{userData?.language_code} ({userData?.username})</p>
             </div>
           </div>
@@ -203,7 +208,7 @@ const App: React.FC = () => {
             <div className="flex items-center w-1/3">
               <div className="w-full">
                 <div className="flex justify-between">
-                  <p className="text-sm">{levelNames[levelIndex]}</p>
+                  <p className="text-sm">Sana aşığım karımmmm of çok fena hemdee</p>
                   <p className="text-sm">{levelIndex + 1} <span className="text-[#95908a]">/ {levelNames.length}</span></p>
                 </div>
                 <div className="flex items-center mt-1 border-2 border-[#43433b] rounded-full">
@@ -314,6 +319,7 @@ const App: React.FC = () => {
       ))}
     </div>
   );
+}
 };
 
 export default App;

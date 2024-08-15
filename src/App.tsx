@@ -152,7 +152,7 @@ const App: React.FC = () => {
       try {
         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.MpoCGM4ZG7207uWeTtwO38-LT83nnrIRnDkjW81Jtiw";
         console.log(process.env.JWT_SECRET);
-       
+        console.log(process.env.MONGODB_URI);      
         setToken(token);
       } catch (error) {
         console.error('Error logging in:', error);

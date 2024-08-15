@@ -157,7 +157,7 @@ const App: React.FC = () => {
           "sub": "1234567890",
           "name": "JohnsDoe",
           "iat": 1516239022
-        },process.env.JWT_SECRET!.toString(),{algorithm:'HS256', expiresIn:'1h'}))
+        },  process.env.JWT_SECRET!,{algorithm:'HS256', expiresIn:'1h'}))
         setToken(token);
       } catch (error) {
         console.error('Error logging in:', error);

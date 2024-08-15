@@ -202,7 +202,6 @@ const App: React.FC = () => {
                   },
                 });
                 console.log(response.data);
-                setUserData(response.data);
               }catch(error){
                 console.log(error)
               }finally{
@@ -222,6 +221,8 @@ const App: React.FC = () => {
 
     fetchUserData();
   }, [token]);
+
+  
   if (loading) {
     return (
     <div className="loading-screen">

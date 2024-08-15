@@ -9,7 +9,7 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
-import fetchUserData from './helpers/UserHelpers';
+import WebApp from '@twa-dev/sdk'
 
 const App: React.FC = () => {
   const levelNames = [
@@ -46,7 +46,11 @@ const App: React.FC = () => {
     language_code:string;
     is_premium?:boolean;
   }
-
+  useEffect(()=>{
+    const tgData = WebApp.initDataUnsafe.user;
+    setUserData(tgData as UserData);
+    
+  },[])
   const [levelIndex, setLevelIndex] = useState(6);
   const [points, setPoints] = useState(22749365);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
@@ -164,9 +168,23 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const fetchUserData = async () => {
 
-    fetchUserData(token!);
+      if (token) {
+        try {
+          const response = await axios.get('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUserData(response.data);
+        } catch (error) {
+          console.error('Error fetching user data:', error);
+        }
+      }
+    };
 
+    fetchUserData();
   }, [token]);
 
   return (

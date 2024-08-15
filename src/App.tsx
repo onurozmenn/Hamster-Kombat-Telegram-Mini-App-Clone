@@ -151,8 +151,7 @@ const App: React.FC = () => {
     const login = async () => {
       try {
         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.MpoCGM4ZG7207uWeTtwO38-LT83nnrIRnDkjW81Jtiw";
-        console.log(process.env.JWT_SECRET!.toString());
-       
+        console.log(process.env.JWT_SECRET!);
         setToken(token);
       } catch (error) {
         console.error('Error logging in:', error);

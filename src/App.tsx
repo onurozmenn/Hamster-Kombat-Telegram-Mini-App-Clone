@@ -177,8 +177,8 @@ const App: React.FC = () => {
   }, [telegramData]);
 
   useEffect(() => {
-    console.log("fetch oynadı");
     const fetchUserData = async () => {
+      console.log("fetch oynadı");
       if (token) {
         try {
           const response = await axios.get(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {

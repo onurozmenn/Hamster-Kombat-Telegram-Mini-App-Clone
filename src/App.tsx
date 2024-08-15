@@ -9,6 +9,7 @@ import Mine from './icons/Mine';
 import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
+
 const App: React.FC = () => {
   const levelNames = [
     "Bronze",    // From 0 to 4999 coins
@@ -147,19 +148,20 @@ const App: React.FC = () => {
 
   const [userData, setUserData] = useState<UserData | null>(null)
   const [token, setToken] = useState<string | null>(null);
-  useEffect(() => {
-    const login = async () => {
-      try {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.MpoCGM4ZG7207uWeTtwO38-LT83nnrIRnDkjW81Jtiw";
 
-        console.log(token); setToken(token);
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/api/generate-token');
+        setToken(response.data.token);
       } catch (error) {
-        console.error('Error logging in:', error);
+        console.error('Error fetching token:', error);
       }
     };
 
-    login();
+    fetchToken();
   }, []);
+  
   useEffect(() => {
     const fetchUserData = async () => {
       if (token) {
@@ -170,7 +172,6 @@ const App: React.FC = () => {
             },
           });
           setUserData(response.data);
-          console.log(response.data);
         } catch (error) {
           console.error('Error fetching user data:', error);
         }

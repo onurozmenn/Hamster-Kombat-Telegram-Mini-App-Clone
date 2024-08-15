@@ -7,6 +7,20 @@ const client = new MongoClient(process.env.MONGODB_URI, {
   useUnifiedTopology: true,
 });
 
+let token = null;
+let tokenExpiration = null;
+
+app.get('/api/generate-token', (req, res) => {
+  // Token'ı sadece bir kez oluşturup 1 saat geçerli olacak şekilde ayarlıyoruz
+  if (!token || new Date() > tokenExpiration) {
+    const payload = { userId: 123, username: 'exampleUser' };
+    token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+    tokenExpiration = new Date(new Date().getTime() + 3600 * 1000); // 1 saat geçerlilik süresi
+  }
+
+  res.json({ token });
+});
+
 export default async function handler(req, res) {
   const { method } = req;
   

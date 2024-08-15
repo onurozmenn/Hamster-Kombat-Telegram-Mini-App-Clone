@@ -57,17 +57,6 @@ const App: React.FC = () => {
 
 
 
-  async function run() {
-    // MongoDB'den kullanıcıları çek
-    useEffect(() => {
-      fetch('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users')
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error('Error fetching users:', error));
-    }, []);
-  }
-
-  run();
 
   const calculateTimeLeft = (targetHour: number) => {
     const now = new Date();
@@ -162,11 +151,8 @@ const App: React.FC = () => {
   useEffect(() => {
     const login = async () => {
       try {
-        const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
-          username: 'Kingbastle',
-          firstname: 'Onur',
-        });
-        setToken(response.data.token);
+
+        setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c");
       } catch (error) {
         console.error('Error logging in:', error);
       }

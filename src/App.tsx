@@ -39,7 +39,6 @@ const App: React.FC = () => {
   ];
 
   interface UserData {
-    _id: string;
     telegramID: string;
     first_name: string;
     username?: string;
@@ -48,7 +47,6 @@ const App: React.FC = () => {
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
     const userData: UserData = {
-      _id: "66bf40a086be0092e3aa020a",
       telegramID: tgData?.id!.toString()!,
       first_name: tgData?.first_name!,
       username: tgData?.username || '',

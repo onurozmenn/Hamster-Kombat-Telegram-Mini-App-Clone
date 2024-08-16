@@ -168,8 +168,12 @@ const App: React.FC = () => {
         console.log(error);
       }
     }
-    updateCoin();
-  },[points]);
+    const interval = setInterval(() => {
+      updateCoin();
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  },[profitPerHour]);
   
   useEffect(() => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);

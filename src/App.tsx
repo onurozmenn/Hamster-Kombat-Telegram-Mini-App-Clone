@@ -251,7 +251,9 @@ const App: React.FC = () => {
 
     fetchUserData();
   }, [token]);
-  console.log(userData);
+  setInterval(() => {
+    console.log(userData);
+  }, 5000);;
   useEffect(() => {
     const createToken = async () => {
       try {

@@ -211,7 +211,6 @@ const App: React.FC = () => {
             },
           });
           setUserData(response.data);
-          setPoints(response.data["coin"]?response.data["coin"]:0);
           console.log(response.data["first_name"]);
           if(userData?.first_name != response.data["first_name"] || 
             userData?.username != response.data["username"]){

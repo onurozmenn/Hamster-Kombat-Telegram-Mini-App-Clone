@@ -61,6 +61,7 @@ const App: React.FC = () => {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true); // Loading state
   const [telegramData, setTelegramData] = useState<Boolean | null>(null);
+  const [fetchFlag, setfetchFlag] = useState<Boolean | null>(false);
   const [levelIndex, setLevelIndex] = useState(0);
   const [points, setPoints] = useState(0);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
@@ -194,6 +195,8 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const fetchUserData = async () => {
+      if(!fetchFlag){
+      setfetchFlag(true);
       console.log("fetch oynadı");
       if (token) {
         try {
@@ -261,6 +264,7 @@ const App: React.FC = () => {
           setLoading(false); // Loading tamamlandığında loading ekranı kaldırılır
         }
       }
+    }
     };
 
     fetchUserData();

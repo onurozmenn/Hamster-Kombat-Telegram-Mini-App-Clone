@@ -45,7 +45,6 @@ const App: React.FC = () => {
     username?: string;
     language_code: string;
   }
-  const startCoin=new Int32(0);
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
     const userDatas: UserData = {

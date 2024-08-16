@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter } from './images';
@@ -151,38 +151,50 @@ const App: React.FC = () => {
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
     return `+${profit}`;
   };
-useEffect(() => {
-  const updateCoin = async () => {
-    try {
-      await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
-        updatedData: {
-          coin: points 
-        }
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const pointsRef = useRef(points);
 
-  const interval = setInterval(() => {
-    updateCoin();
-  }, 3000); // Her 3 saniyede bir isteği gönder
+  useEffect(() => {
+    pointsRef.current = points;
+  }, [points]);
+  
+  useEffect(() => {
+    const updateCoin = async () => {
+      try {
+        await axios.put(
+          `https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`,
+          {
+            updatedData: {
+              coin: pointsRef.current,
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log("API isteği gönderildi.");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  
+    const interval = setInterval(() => {
+      if (pointsRef.current > 0) {
+        updateCoin();
+      }
+    }, 3000); // Her 3 saniyede bir isteği gönder
+  
+    return () => clearInterval(interval); // Component unmount olduğunda interval'i temizle
+  }, [userData?.telegramID, token]);
+  useEffect(() => {
+    const pointsPerSecond = Math.floor(profitPerHour / 3600);
+    const interval = setInterval(() => {
+      setPoints(prevPoints => prevPoints + pointsPerSecond);
+    }, 1000);
 
-  return () => clearInterval(interval); // Component unmount olduğunda interval'i temizle
-}, [points]); // points değiştikçe useEffect tekrar çalışır
-
-useEffect(() => {
-  const pointsPerSecond = Math.floor(profitPerHour / 3600);
-  const interval = setInterval(() => {
-    setPoints(prevPoints => prevPoints + pointsPerSecond);
-  }, 1000);
-
-  return () => clearInterval(interval);
-}, [profitPerHour]);
+    return () => clearInterval(interval);
+  }, [profitPerHour]);
 
 
   useEffect(() => {

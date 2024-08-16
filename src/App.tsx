@@ -173,7 +173,7 @@ const App: React.FC = () => {
     }, 3000);
     
     return () => clearInterval(interval);
-  },[profitPerHour]);
+  },[profitPerHour,token,userData]);
   
   useEffect(() => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);

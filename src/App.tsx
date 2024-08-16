@@ -10,7 +10,6 @@ import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
 import WebApp from '@twa-dev/sdk'
-import { Int32 } from 'mongodb';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -71,9 +70,6 @@ const App: React.FC = () => {
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
 
-
-
-
   const calculateTimeLeft = (targetHour: number) => {
     const now = new Date();
     const target = new Date(now);
@@ -119,8 +115,6 @@ const App: React.FC = () => {
     setPoints(points + pointsToAdd);
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
   };
-
-
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));

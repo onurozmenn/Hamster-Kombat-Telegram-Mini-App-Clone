@@ -187,7 +187,11 @@ const App: React.FC = () => {
                 Authorization: `Bearer ${token}`,
               },
             });
-            setUserData(response.data);
+            const updatedData = {
+              first_name: userData?.first_name,  // İlk isim güncellemesi
+              username: userData?.username       // Kullanıcı adı güncellemesi
+            }
+            setUserData(updatedData as UserData);
             console.log(response.data);
           }
           

@@ -46,6 +46,7 @@ const App: React.FC = () => {
     language_code: string;
     coin: Int32;
   }
+  const startCoin=new Int32(0);
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
     const userDatas: UserData = {
@@ -53,7 +54,7 @@ const App: React.FC = () => {
       first_name: tgData?.first_name!,
       username: tgData?.username || '',
       language_code: tgData?.language_code!,
-      coin: new Int32(0)
+      coin: startCoin
     };
     setUserData(userDatas);
     setTelegramData(true);

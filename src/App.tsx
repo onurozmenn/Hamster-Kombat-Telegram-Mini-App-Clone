@@ -151,31 +151,34 @@ const App: React.FC = () => {
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
     return `+${profit}`;
   };
-  const updateCoin = async (newCoin:number,telegramID:string,token:string) => {
-    try{
-      await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
-        //Göndermek istediğiniz veriler
-        updatedData: {
-          coin: newCoin // İlk isim güncellemesi
-        }
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    }catch(error){
-      console.log(error);
+  useEffect(()=>{
+    const updateCoin = async () => {
+      try{
+        await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
+          
+          updatedData: {
+            coin: points 
+          }
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      }catch(error){
+        console.log(error);
+      }
     }
-  }
+    updateCoin();
+  },[points]);
+  
   useEffect(() => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
       setPoints(prevPoints => prevPoints + pointsPerSecond);
-      updateCoin(points,userData?.telegramID!,token!);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [profitPerHour, userData?.telegramID,token]);
+  }, [profitPerHour]);
 
 
   useEffect(() => {

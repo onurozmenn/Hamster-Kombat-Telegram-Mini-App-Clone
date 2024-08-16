@@ -171,12 +171,11 @@ const App: React.FC = () => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
       setPoints(prevPoints => prevPoints + pointsPerSecond);
-      console.log(userData?.telegramID);
       updateCoin(points,userData?.telegramID!);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [profitPerHour]);
+  }, [profitPerHour, userData?.telegramID]);
 
 
   useEffect(() => {
@@ -251,9 +250,6 @@ const App: React.FC = () => {
 
     fetchUserData();
   }, [token]);
-  setInterval(() => {
-    console.log(userData);
-  }, 5000);
   useEffect(() => {
     const createToken = async () => {
       try {

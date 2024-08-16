@@ -46,13 +46,13 @@ const App: React.FC = () => {
   }
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
-    const userData: UserData = {
+    const userDatas: UserData = {
       telegramID: tgData?.id!.toString()!,
       first_name: tgData?.first_name!,
       username: tgData?.username || '',
       language_code: tgData?.language_code!,
     };
-    setUserData(userData);
+    setUserData(userDatas);
     setTelegramData(true);
     console.log("telegram data değişti");
   }, [])

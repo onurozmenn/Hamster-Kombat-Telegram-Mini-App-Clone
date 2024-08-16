@@ -163,20 +163,6 @@ const App: React.FC = () => {
 
 
   useEffect(() => {
-    const createToken = async () => {
-      try {
-        const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
-        console.log("token değişti");
-        setToken(response.data.token);
-      } catch (error) {
-        console.error('Error fetching token:', error);
-      }
-    };
-
-    createToken();
-  }, [telegramData]);
-
-  useEffect(() => {
     const fetchUserData = async () => {
       console.log("fetch oynadı");
       if (token) {
@@ -225,6 +211,20 @@ const App: React.FC = () => {
 
     fetchUserData();
   }, [token]);
+
+  useEffect(() => {
+    const createToken = async () => {
+      try {
+        const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
+        console.log("token değişti");
+        setToken(response.data.token);
+      } catch (error) {
+        console.error('Error fetching token:', error);
+      }
+    };
+
+    createToken();
+  }, [telegramData]);
 
 
   if (loading) {

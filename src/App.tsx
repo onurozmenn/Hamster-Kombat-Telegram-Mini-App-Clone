@@ -174,11 +174,12 @@ const App: React.FC = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          console.log(response.data);
-          if(userData != response.data){
+          const tempUser = userData;
+          if(userData != tempUser){
             console.log("farklı!");
-            console.log(response.data);
-            console.log(userData);
+          }
+          if(userData !== tempUser){
+            console.log("farklı2!");
           }
           setUserData(response.data);
         } catch (error) {

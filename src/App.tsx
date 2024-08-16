@@ -175,7 +175,7 @@ const App: React.FC = () => {
           const tempUser = userData;
           setUserData(response.data);
           console.log(response.data["first_name"]);
-          if(userData == response.data["first_name"]){
+          if(userData?.first_name == response.data["first_name"]){
             console.log(tempUser);
             console.log(userData);
             console.log("aynı!");

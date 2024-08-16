@@ -175,6 +175,8 @@ const App: React.FC = () => {
           const tempUser = userData;
           setUserData(response.data);
           if(userData == tempUser){
+            console.log(tempUser);
+            console.log(userData);
             console.log("aynı!");
           }
           if(userData === tempUser){

@@ -50,8 +50,8 @@ export default async function handler(req, res) {
         break;
 
       case 'PUT':
-        const { id, ...updatedData } = req.body;
-        await collection.updateOne({ _id: id }, { $set: updatedData });
+        const { updatedData } = req.body;
+        await collection.updateOne({ telegramID: ids }, { $set: updatedData });
         res.status(200).json({ message: 'User updated successfully' });
         break;
 

@@ -172,17 +172,22 @@ const App: React.FC = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          const tempUser = userData;
           setUserData(response.data);
           console.log(response.data["first_name"]);
-          if(userData?.first_name == response.data["first_name"]){
-            console.log(tempUser);
-            console.log(userData);
-            console.log("aynı!");
+          if(userData?.first_name != response.data["first_name"] || 
+            userData?.username != response.data["username"]){
+            await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
+              //Göndermek istediğiniz veriler
+              first_name: userData?.first_name,
+              username: userData?.username,
+            }, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            console.log(response.data);
           }
-          if(userData === response.data["first_name"]){
-            console.log("aynı2!");
-          }
+          
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.response?.status === 404) {

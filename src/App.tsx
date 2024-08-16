@@ -175,7 +175,7 @@ const App: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [profitPerHour, userData?.telegramID]);
+  }, [profitPerHour, userData?.telegramID,token]);
 
 
   useEffect(() => {

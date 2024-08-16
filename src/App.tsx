@@ -10,7 +10,6 @@ import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
 import WebApp from '@twa-dev/sdk'
-import { Double } from 'mongodb';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -40,7 +39,7 @@ const App: React.FC = () => {
   ];
 
   interface UserData {
-    telegramID: Double;
+    telegramID: string;
     firstname: string;
     username?: string;
     language_code: string;
@@ -48,7 +47,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
     const userData: UserData = {
-      telegramID: tgData?.id! as unknown as Double,
+      telegramID: tgData?.id!.toString()!,
       firstname: tgData?.first_name!,
       username: tgData?.username || '',
       language_code: tgData?.language_code!,
@@ -244,7 +243,7 @@ const App: React.FC = () => {
                 <Hamster size={24} className="text-[#d4d4d4]" />
               </div>
               <div>
-                <p className="text-sm">{userData?.firstname} ({userData?.telegramID.value})</p>
+                <p className="text-sm">{userData?.firstname} ({userData?.telegramID})</p>
                 <p className="text-sm">{userData?.language_code} ({userData?.username})</p>
               </div>
             </div>

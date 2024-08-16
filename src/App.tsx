@@ -196,7 +196,9 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       if(!fetchFlag){
+        
       setfetchFlag(true);
+      }else if(fetchFlag){
       console.log("fetch oynadı");
       if (token) {
         try {

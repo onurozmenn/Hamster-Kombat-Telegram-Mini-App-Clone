@@ -187,6 +187,7 @@ const App: React.FC = () => {
                 Authorization: `Bearer ${token}`,
               },
             });
+            setUserData(response.data);
             console.log(response.data);
           }
           

@@ -10,6 +10,7 @@ import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
 import WebApp from '@twa-dev/sdk'
+import { Int32 } from 'mongodb';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -43,6 +44,7 @@ const App: React.FC = () => {
     first_name: string;
     username?: string;
     language_code: string;
+    coin: Int32;
   }
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
@@ -51,6 +53,7 @@ const App: React.FC = () => {
       first_name: tgData?.first_name!,
       username: tgData?.username || '',
       language_code: tgData?.language_code!,
+      coin: new Int32(0)
     };
     setUserData(userDatas);
     setTelegramData(true);
@@ -208,6 +211,7 @@ const App: React.FC = () => {
             },
           });
           setUserData(response.data);
+          setPoints(response.data["coin"]);
           console.log(response.data["first_name"]);
           if(userData?.first_name != response.data["first_name"] || 
             userData?.username != response.data["username"]){

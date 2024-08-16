@@ -176,11 +176,11 @@ const App: React.FC = () => {
           });
           const tempUser = userData;
           setUserData(response.data);
-          if(userData != tempUser){
-            console.log("farklı!");
+          if(userData == tempUser){
+            console.log("aynı!");
           }
           if(userData !== tempUser){
-            console.log("farklı2!");
+            console.log("aynı2!");
           }
         } catch (error) {
           if (axios.isAxiosError(error)) {

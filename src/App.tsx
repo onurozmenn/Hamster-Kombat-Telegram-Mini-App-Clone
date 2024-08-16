@@ -180,7 +180,7 @@ const App: React.FC = () => {
             console.log(userData);
             console.log("aynı!");
           }
-          if(userData === tempUser){
+          if(userData === response.data["first_name"]){
             console.log("aynı2!");
           }
         } catch (error) {

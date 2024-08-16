@@ -173,6 +173,9 @@ const App: React.FC = () => {
             },
           });
           console.log(response.data);
+          if(userData !== response.data){
+            console.log("farklı!");
+          }
           setUserData(response.data);
         } catch (error) {
           if (axios.isAxiosError(error)) {

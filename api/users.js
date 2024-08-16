@@ -49,11 +49,23 @@ export default async function handler(req, res) {
         res.status(201).json({ message: 'User created successfully' });
         break;
 
-      case 'PUT':
-        const { updatedData } = req.body;
-        await collection.updateOne({ telegramID: ids }, { $set: updatedData });
-        res.status(200).json({ message: 'User updated successfully' });
-        break;
+        case 'PUT':
+          const { updatedData } = req.body;  // Bu satırı doğru aldığınızdan emin olun.
+          const telegramID = req.query.ids;
+      
+          if (!telegramID || !updatedData) {
+              res.status(400).json({ error: 'Missing telegramID or updatedData' });
+              break;
+          }
+      
+          const result = await collection.updateOne({ telegramID: telegramID }, { $set: updatedData });
+      
+          if (result.matchedCount === 0) {
+              res.status(404).json({ error: 'User not found' });
+          } else {
+              res.status(200).json({ message: 'User updated successfully' });
+          }
+          break;
 
       case 'DELETE':
         const { userId } = req.body;

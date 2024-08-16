@@ -189,7 +189,9 @@ const App: React.FC = () => {
             });
             const updatedData = {
               first_name: userData?.first_name,  // İlk isim güncellemesi
-              username: userData?.username       // Kullanıcı adı güncellemesi
+              language_code: userData?.language_code,
+              username: userData?.username,       // Kullanıcı adı güncellemesi
+              telegramID: userData?.telegramID
             }
             setUserData(updatedData as UserData);
             console.log(response.data);

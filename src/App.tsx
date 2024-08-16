@@ -175,13 +175,13 @@ const App: React.FC = () => {
             },
           });
           const tempUser = userData;
+          setUserData(response.data);
           if(userData != tempUser){
             console.log("farklı!");
           }
           if(userData !== tempUser){
             console.log("farklı2!");
           }
-          setUserData(response.data);
         } catch (error) {
           if (axios.isAxiosError(error)) {
             if (error.response?.status === 404) {

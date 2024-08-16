@@ -225,7 +225,7 @@ const App: React.FC = () => {
     const createToken = async () => {
       try {
         const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
-        console.log("token değişti");
+        console.log("token değiştir");
         setToken(response.data.token);
       } catch (error) {
         console.error('Error fetching token:', error);

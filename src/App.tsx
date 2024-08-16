@@ -151,11 +151,27 @@ const App: React.FC = () => {
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
     return `+${profit}`;
   };
-
+  const updateCoin = async (newCoin:number) => {
+    try{
+      await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
+        //Göndermek istediğiniz veriler
+        updatedData: {
+          coin: newCoin // İlk isim güncellemesi
+        }
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }catch(error){
+      console.log(error);
+    }
+  }
   useEffect(() => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
       setPoints(prevPoints => prevPoints + pointsPerSecond);
+      updateCoin(points);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -241,6 +257,7 @@ const App: React.FC = () => {
         const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/generate-token');
         console.log("token değiştir");
         setToken(response.data.token);
+        
       } catch (error) {
         console.error('Error fetching token:', error);
       }

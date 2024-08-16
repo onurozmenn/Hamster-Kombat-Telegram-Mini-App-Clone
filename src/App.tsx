@@ -178,8 +178,10 @@ const App: React.FC = () => {
             userData?.username != response.data["username"]){
             await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
               //Göndermek istediğiniz veriler
-              first_name: userData?.first_name,
-              username: userData?.username,
+              updatedData: {
+                first_name: userData?.first_name,  // İlk isim güncellemesi
+                username: userData?.username       // Kullanıcı adı güncellemesi
+              }
             }, {
               headers: {
                 Authorization: `Bearer ${token}`,

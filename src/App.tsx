@@ -151,9 +151,9 @@ const App: React.FC = () => {
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
     return `+${profit}`;
   };
-  const updateCoin = async (newCoin:number) => {
+  const updateCoin = async (newCoin:number,telegramID:string) => {
     try{
-      await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
+      await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
         //Göndermek istediğiniz veriler
         updatedData: {
           coin: newCoin // İlk isim güncellemesi
@@ -171,7 +171,7 @@ const App: React.FC = () => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
       setPoints(prevPoints => prevPoints + pointsPerSecond);
-      updateCoin(points);
+      updateCoin(points,userData?.telegramID!);
     }, 1000);
 
     return () => clearInterval(interval);

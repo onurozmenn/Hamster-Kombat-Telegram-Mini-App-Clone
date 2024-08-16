@@ -174,6 +174,7 @@ const App: React.FC = () => {
           });
           const tempUser = userData;
           setUserData(response.data);
+          console.log(response.data);
           if(userData == tempUser){
             console.log(tempUser);
             console.log(userData);

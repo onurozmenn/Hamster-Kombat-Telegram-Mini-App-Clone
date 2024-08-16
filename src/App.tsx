@@ -151,39 +151,39 @@ const App: React.FC = () => {
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
     return `+${profit}`;
   };
-  useEffect(() => {
-    const updateCoin = async () => {
-      try {
-        await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
-          updatedData: {
-            coin: points 
-          }
-        }, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-  
-    const interval = setInterval(() => {
-      updateCoin();
-    }, 3000); // Her 3 saniyede bir isteği gönder
-  
-    return () => clearInterval(interval); // Component unmount olduğunda interval'i temizle
-  }, [points]); // points değiştikçe useEffect tekrar çalışır
-  
-  useEffect(() => {
-    const pointsPerSecond = Math.floor(profitPerHour / 3600);
-    const interval = setInterval(() => {
-      setPoints(prevPoints => prevPoints + pointsPerSecond);
-    }, 1000);
-  
-    return () => clearInterval(interval);
-  }, [profitPerHour]);
-  
+useEffect(() => {
+  const updateCoin = async () => {
+    try {
+      await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${userData?.telegramID}`, {
+        updatedData: {
+          coin: points 
+        }
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const interval = setInterval(() => {
+    updateCoin();
+  }, 3000); // Her 3 saniyede bir isteği gönder
+
+  return () => clearInterval(interval); // Component unmount olduğunda interval'i temizle
+}, [points]); // points değiştikçe useEffect tekrar çalışır
+
+useEffect(() => {
+  const pointsPerSecond = Math.floor(profitPerHour / 3600);
+  const interval = setInterval(() => {
+    setPoints(prevPoints => prevPoints + pointsPerSecond);
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, [profitPerHour]);
+
 
   useEffect(() => {
     const fetchUserData = async () => {

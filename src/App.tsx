@@ -40,7 +40,7 @@ const App: React.FC = () => {
 
   interface UserData {
     telegramID: string;
-    firstname: string;
+    first_name: string;
     username?: string;
     language_code: string;
   }
@@ -48,7 +48,7 @@ const App: React.FC = () => {
     const tgData = WebApp.initDataUnsafe.user;
     const userData: UserData = {
       telegramID: tgData?.id!.toString()!,
-      firstname: tgData?.first_name!,
+      first_name: tgData?.first_name!,
       username: tgData?.username || '',
       language_code: tgData?.language_code!,
     };
@@ -197,7 +197,7 @@ const App: React.FC = () => {
                 const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
                   //Göndermek istediğiniz veriler
                   telegramID: userData?.telegramID,
-                  first_name: userData?.firstname,
+                  first_name: userData?.first_name,
                   username: userData?.username,
                   language_code: userData?.language_code,
                 }, {
@@ -243,7 +243,7 @@ const App: React.FC = () => {
                 <Hamster size={24} className="text-[#d4d4d4]" />
               </div>
               <div>
-                <p className="text-sm">{userData?.firstname} ({userData?.telegramID})</p>
+                <p className="text-sm">{userData?.first_name} ({userData?.telegramID})</p>
                 <p className="text-sm">{userData?.language_code} ({userData?.username})</p>
               </div>
             </div>

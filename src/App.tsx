@@ -177,6 +177,8 @@ const App: React.FC = () => {
           console.log(response.data);
           if(userData != response.data){
             console.log("farklı!");
+            console.log(response.data);
+            console.log(userData);
           }
           setUserData(response.data);
         } catch (error) {

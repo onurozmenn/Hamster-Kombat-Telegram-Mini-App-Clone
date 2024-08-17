@@ -36,3 +36,30 @@ export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHo
         )}
     </div>
 );
+type PurchaseModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+};
+
+export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose }) => {
+    return (
+        <div
+            className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'} z-50`}
+            style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+        >
+            <div
+                className={`fixed bottom-0 left-0 w-full bg-white p-4 rounded-t-lg transition-transform ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
+            >
+                <button
+                    onClick={onClose}
+                    className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+                >
+                    &times;
+                </button>
+                <h2 className="text-lg font-bold">Purchase Details</h2>
+                <p>Your purchase information goes here.</p>
+                {/* Add more content as needed */}
+            </div>
+        </div>
+    );
+};

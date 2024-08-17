@@ -285,7 +285,12 @@ const App: React.FC = () => {
       createToken();
     }
   }, [telegramData]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleButtonClick = () => {
+    setIsModalOpen(true);
+};
 
+console.log(isModalOpen);
   // Define your different screen components
   const ExchangeScreen = () =>
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
@@ -350,7 +355,7 @@ const App: React.FC = () => {
                 profitPerHour="321"
                 level="3"
                 totalProfit="1,55K"
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={()=>handleButtonClick()}
               />
               <TeamCard
                 imageSrc={mineImage1}

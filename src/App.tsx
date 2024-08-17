@@ -335,7 +335,7 @@ const App: React.FC = () => {
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
       <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
         <div className="px-4 mt-6 flex justify-between gap-2">
-          <div className="bg-[#1c1f24] min-h-screen p-4">
+          <div className="bg-[#1c1f24] min-h-screen p-4 w-full">
             <div className="flex justify-between mb-4">
               <button className="text-white">PR&Team</button>
               <button className="text-gray-500">Markets</button>

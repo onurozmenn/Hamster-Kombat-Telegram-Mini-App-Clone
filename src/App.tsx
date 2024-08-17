@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Hamster from './icons/Hamster';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter } from './images';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter, mineImage1 } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import Mine from './icons/Mine';
@@ -370,14 +370,14 @@ const App: React.FC = () => {
       totalProfit="957"
     />
     <TeamCard
-      imageSrc="hamsterbook_image.png"
+      imageSrc={mineImage1}
       title="HamsterBook"
       profitPerHour="70"
       level="1"
       totalProfit="551"
     />
     <TeamCard
-      imageSrc="hamstertube_image.png"
+      imageSrc={mineImage1}
       title="HamsterTube"
       profitPerHour="90"
       level="0"
@@ -385,21 +385,21 @@ const App: React.FC = () => {
       isLocked={true}
     />
     <TeamCard
-      imageSrc="x_image.png"
+      imageSrc={mineImage1}
       title="X"
       profitPerHour="80"
       level="0"
       totalProfit="550"
     />
     <TeamCard
-      imageSrc="cointelegraph_image.png"
+      imageSrc={mineImage1}
       title="Cointelegraph"
       profitPerHour="40"
       level="0"
       totalProfit="350"
     />
     <TeamCard
-      imageSrc="hamstergram_image.png"
+      imageSrc={mineImage1}
       title="HamsterGram"
       profitPerHour="50"
       level="0"
@@ -407,7 +407,7 @@ const App: React.FC = () => {
       isLocked={true}
     />
     <TeamCard
-      imageSrc="tiktok_image.png"
+      imageSrc={mineImage1}
       title="TikTok"
       profitPerHour="100"
       level="0"
@@ -416,6 +416,7 @@ const App: React.FC = () => {
     />
   </div>
 </div>;
+
   const FriendsScreen = () => <div>Friends Screen</div>;
   const EarnScreen = () => <div>Earn Screen</div>;
   const AirdropScreen = () => <div>Airdrop Screen</div>;

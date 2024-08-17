@@ -183,7 +183,7 @@ const App: React.FC = () => {
       if (pointsRef.current > 0) {
         updateCoin();
       }
-    }, 3000); // Her 3 saniyede bir isteği gönder
+    }, 5000); // Her 3 saniyede bir isteği gönder
 
     return () => clearInterval(interval); // Component unmount olduğunda interval'i temizle
   }, [userData?.telegramID, token]);
@@ -191,7 +191,7 @@ const App: React.FC = () => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
       setPoints(prevPoints => prevPoints + pointsPerSecond);
-    }, 1000);
+    }, 500000);
 
     return () => clearInterval(interval);
   }, [profitPerHour]);

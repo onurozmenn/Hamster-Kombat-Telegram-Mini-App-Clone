@@ -281,7 +281,8 @@ const App: React.FC = () => {
   }, [telegramData]);
   
   // Define your different screen components
-const ExchangeScreen = () =>             <div className="w-full bg-black text-white h-full font-bold flex flex-col max-w-xl">
+const ExchangeScreen = () =>             
+<div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
 <div className="px-4 z-10">
   <div className="flex items-center space-x-2 pt-4">
     <div className="p-1 rounded-lg bg-[#1d2025]">
@@ -366,6 +367,7 @@ const ExchangeScreen = () =>             <div className="w-full bg-black text-wh
   </div>
 </div>
 </div>;
+
 const MineScreen = () => <div>Mine Screen</div>;
 const FriendsScreen = () => <div>Friends Screen</div>;
 const EarnScreen = () => <div>Earn Screen</div>;
@@ -409,23 +411,23 @@ const AirdropScreen = () => <div>Airdrop Screen</div>;
               })()}
             {/* Bottom fixed div */}
             <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#272a2f] flex justify-around items-center z-50 rounded-3xl text-xs">
-              <div className="text-center text-[#85827d] w-1/5 bg-[#1c1f24] m-1 p-2 rounded-2xl">
+              <div onClick={()=>setCurrentScreen("exchange")} className="text-center text-[#85827d] w-1/5 bg-[#1c1f24] m-1 p-2 rounded-2xl">
                 <img src={binanceLogo} alt="Exchange" className="w-8 h-8 mx-auto" />
                 <p className="mt-1">Exchange</p>
               </div>
-              <div className="text-center text-[#85827d] w-1/5">
+              <div onClick={()=>setCurrentScreen("mine")} className="text-center text-[#85827d] w-1/5">
                 <Mine className="w-8 h-8 mx-auto" />
                 <p className="mt-1">Mine</p>
               </div>
-              <div className="text-center text-[#85827d] w-1/5">
+              <div onClick={()=>setCurrentScreen("friends")} className="text-center text-[#85827d] w-1/5">
                 <Friends className="w-8 h-8 mx-auto" />
                 <p className="mt-1">Friends</p>
               </div>
-              <div className="text-center text-[#85827d] w-1/5">
+              <div onClick={()=>setCurrentScreen("earn")} className="text-center text-[#85827d] w-1/5">
                 <Coins className="w-8 h-8 mx-auto" />
                 <p className="mt-1">Earn</p>
               </div>
-              <div className="text-center text-[#85827d] w-1/5">
+              <div onClick={()=>setCurrentScreen("airdrop")} className="text-center text-[#85827d] w-1/5">
                 <img src={hamsterCoin} alt="Airdrop" className="w-8 h-8 mx-auto" />
                 <p className="mt-1">Airdrop</p>
               </div>

@@ -343,7 +343,7 @@ const App: React.FC = () => {
               <button className="text-gray-500">Web3</button>
               <button className="text-gray-500">Specials</button>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div style={{paddingBottom:"100px"}} className="grid grid-cols-2 gap-4">
               <TeamCard
                 imageSrc={mineImage1}
                 title="CEO"
@@ -402,12 +402,12 @@ const App: React.FC = () => {
                 level="0"
                 totalProfit="350"
               />
-              <TeamCard
+<TeamCard
                 imageSrc={mineImage1}
-                title="HamsterGram"
-                profitPerHour="50"
+                title="Cointelegraph"
+                profitPerHour="40"
                 level="0"
-                totalProfit="HamsterTube lvl 8"
+                totalProfit="350"
                 isLocked={true}
               />
               <TeamCard

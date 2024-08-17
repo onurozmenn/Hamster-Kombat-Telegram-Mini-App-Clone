@@ -10,12 +10,13 @@ type TeamCardProps = {
 };
 export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHour, level, totalProfit, isLocked = false }) => (
     <div className="bg-[#292c34] rounded-lg p-4 w-full relative flex flex-col items-center">
-        {isLocked && (<div>
+        {isLocked && (
+            <div>
             <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-lg">
-
+            <img src={lockImage} alt="Locked" className="w-12 h-12" />
             </div>
                 <>
-                <img src={lockImage} alt="Locked" className="w-12 h-12" />
+                
                 <img src={imageSrc} alt={title} className="w-16 h-16 mb-2" />
                 <h2 className="text-white text-lg font-bold">{title}</h2>
                 <p className="text-gray-400">Saat başı kar</p>

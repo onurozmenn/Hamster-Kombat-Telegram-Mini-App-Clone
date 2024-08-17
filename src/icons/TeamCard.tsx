@@ -60,28 +60,25 @@ export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose })
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [isOpen, onClose]);
-    
+
     return (
-        <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-20">
+        <div
+            className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-1000 ${isOpen ? 'opacity-100' : 'opacity-0'} z-50`}
+            style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+        >
             <div
-                className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'} z-50`}
-                style={{ pointerEvents: isOpen ? 'auto' : 'none', transition: "opacity 0.3s ease-out",position: "fixed" }}
+                ref={modalRef}
+                className={`fixed bottom-0 left-0 w-full bg-[#1d2025] p-4 rounded-t-lg h-80 transition-transform duration-1000 ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
             >
-                <div
-                    style={{transition: "transform 0.3s ease-out",position: "fixed"}}
-                    ref={modalRef}
-                    className={`fixed bottom-0 left-0 w-full bg-[#1d2025] p-4 rounded-t-lg h-80 transition-transform ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
+                <button
+                    onClick={onClose}
+                    className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
                 >
-                    <button
-                        onClick={onClose}
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
-                    >
-                        &times;
-                    </button>
-                    <h2 className="text-lg font-bold">Purchase Details</h2>
-                    <p>Your purchase information goes here.</p>
-                    {/* Add more content as needed */}
-                </div>
+                    &times;
+                </button>
+                <h2 className="text-lg font-bold">Satın Alma Detayları</h2>
+                <p>Satın alma bilginiz burada görünecek.</p>
+                {/* Daha fazla içerik ekleyebilirsiniz */}
             </div>
         </div>
     );

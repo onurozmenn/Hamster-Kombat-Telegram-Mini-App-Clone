@@ -43,7 +43,7 @@ type PurchaseModalProps = {
 
 export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose }) => {
     return (
-        <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
+        <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-20 h-80">
         <div
             className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'} z-50`}
             style={{ pointerEvents: isOpen ? 'auto' : 'none' }}

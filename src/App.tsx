@@ -341,14 +341,14 @@ const App: React.FC = () => {
   </div>
   <div className="grid grid-cols-2 gap-4">
     <TeamCard
-      imageSrc="ceo_image.png"
+      imageSrc={mineImage1}
       title="CEO"
       profitPerHour="321"
       level="3"
       totalProfit="1,55K"
     />
     <TeamCard
-      imageSrc="marketing_image.png"
+      imageSrc={mineImage1}
       title="Marketing"
       profitPerHour="225"
       level="3"
@@ -356,14 +356,14 @@ const App: React.FC = () => {
       isLocked={true}
     />
     <TeamCard
-      imageSrc="it_team_image.png"
+      imageSrc={mineImage1}
       title="IT Team"
       profitPerHour="772"
       level="3"
       totalProfit="3,1K"
     />
     <TeamCard
-      imageSrc="support_team_image.png"
+      imageSrc={mineImage1}
       title="Support Team"
       profitPerHour="145"
       level="2"

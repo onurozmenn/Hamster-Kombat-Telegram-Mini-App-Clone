@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import NonMobileWarning from "./NonMobileWarning.tsx";
+import React from 'react';
 
 // Function to check if the user is on a mobile device
 function isMobileDevice() {

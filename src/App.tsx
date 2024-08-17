@@ -343,13 +343,14 @@ const App: React.FC = () => {
               <button className="text-gray-500">Web3</button>
               <button className="text-gray-500">Specials</button>
             </div>
-            <div style={{paddingBottom:"100px"}} className="grid grid-cols-2 gap-4">
+            <div style={{ paddingBottom: "100px" }} className="grid grid-cols-2 gap-4">
               <TeamCard
                 imageSrc={mineImage1}
                 title="CEO"
                 profitPerHour="321"
                 level="3"
                 totalProfit="1,55K"
+                onClickEvent={()=>console.log("1")}
               />
               <TeamCard
                 imageSrc={mineImage1}
@@ -358,6 +359,7 @@ const App: React.FC = () => {
                 level="3"
                 totalProfit="1,55K"
                 isLocked={true}
+                onClickEvent={()=>console.log("1")}
               />
               <TeamCard
                 imageSrc={mineImage1}
@@ -365,6 +367,7 @@ const App: React.FC = () => {
                 profitPerHour="772"
                 level="3"
                 totalProfit="3,1K"
+                onClickEvent={()=>console.log("1")}
               />
               <TeamCard
                 imageSrc={mineImage1}
@@ -372,6 +375,7 @@ const App: React.FC = () => {
                 profitPerHour="145"
                 level="2"
                 totalProfit="957"
+                onClickEvent={()=>console.log("1")}
               />
               <TeamCard
                 imageSrc={mineImage1}
@@ -379,6 +383,7 @@ const App: React.FC = () => {
                 profitPerHour="70"
                 level="1"
                 totalProfit="551"
+                onClickEvent={()=>console.log("1")}
               />
               <TeamCard
                 imageSrc={mineImage1}
@@ -387,6 +392,7 @@ const App: React.FC = () => {
                 level="0"
                 totalProfit="HamsterBook lvl 5"
                 isLocked={true}
+                onClickEvent={()=>console.log("1")}
               />
               <TeamCard
                 imageSrc={mineImage1}
@@ -394,6 +400,7 @@ const App: React.FC = () => {
                 profitPerHour="80"
                 level="0"
                 totalProfit="550"
+                onClickEvent={()=>console.log("1")}
               />
               <TeamCard
                 imageSrc={mineImage1}
@@ -401,14 +408,16 @@ const App: React.FC = () => {
                 profitPerHour="40"
                 level="0"
                 totalProfit="350"
+                onClickEvent={()=>console.log("1")}
               />
-<TeamCard
+              <TeamCard
                 imageSrc={mineImage1}
                 title="Cointelegraph"
                 profitPerHour="40"
                 level="0"
                 totalProfit="350"
                 isLocked={true}
+                onClickEvent={()=>console.log("1")}
               />
               <TeamCard
                 imageSrc={mineImage1}
@@ -417,6 +426,7 @@ const App: React.FC = () => {
                 level="0"
                 totalProfit="HamsterGram lvl 3"
                 isLocked={true}
+                onClickEvent={()=>console.log("1")}
               />
             </div>
           </div>

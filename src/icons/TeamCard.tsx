@@ -60,13 +60,15 @@ export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose })
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [isOpen, onClose]);
+    
     return (
         <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-20">
             <div
                 className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'} z-50`}
-                style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+                style={{ pointerEvents: isOpen ? 'auto' : 'none', transition: "opacity 0.3s ease-out" }}
             >
                 <div
+                    style={{transition: "transform 0.3s ease-out"}}
                     ref={modalRef}
                     className={`fixed bottom-0 left-0 w-full bg-[#1d2025] p-4 rounded-t-lg h-80 transition-transform ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
                 >

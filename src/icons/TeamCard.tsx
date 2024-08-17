@@ -43,12 +43,13 @@ type PurchaseModalProps = {
 
 export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose }) => {
     return (
+        <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
         <div
             className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'} z-50`}
             style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
         >
             <div
-                className={`fixed bottom-0 left-0 w-full bg-white p-4 rounded-t-lg transition-transform ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
+                className={`fixed bottom-0 left-0 w-full bg-[#1d2025] p-4 rounded-t-lg transition-transform ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
             >
                 <button
                     onClick={onClose}
@@ -60,6 +61,6 @@ export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose })
                 <p>Your purchase information goes here.</p>
                 {/* Add more content as needed */}
             </div>
-        </div>
+        </div></div>
     );
 };

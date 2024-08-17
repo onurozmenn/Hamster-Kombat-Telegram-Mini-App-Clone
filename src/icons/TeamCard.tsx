@@ -1,4 +1,4 @@
-import { lockImage, mineImage1 } from "../images";
+import { lockImage } from "../images";
 
 type TeamCardProps = {
     imageSrc: string;

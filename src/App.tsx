@@ -43,6 +43,7 @@ const App: React.FC = () => {
     first_name: string;
     username?: string;
     language_code: string;
+    profitPerHour: number;
   }
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
@@ -50,12 +51,14 @@ const App: React.FC = () => {
       telegramID: tgData?.id!.toString()!,
       first_name: tgData?.first_name!,
       username: tgData?.username || '',
-      language_code: tgData?.language_code!
+      language_code: tgData?.language_code!,
+      profitPerHour:0
     };
     setUserData(userDatas);
     setTelegramData(true);
     console.log("telegram data değişti");
     handleScreenChange("exchange");
+    setProfitPerHour(3600);
   }, [])
 
   const [userData, setUserData] = useState<UserData | null>(null)
@@ -66,7 +69,7 @@ const App: React.FC = () => {
   const [points, setPoints] = useState(0);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 1111;
-  const profitPerHour = 126420;
+  const [profitPerHour, setProfitPerHour] = useState(0);
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
@@ -252,6 +255,8 @@ const App: React.FC = () => {
                   first_name: userData?.first_name,
                   username: userData?.username,
                   language_code: userData?.language_code,
+                  coin:0,
+                  profitPerHour: 0,
                 }, {
                   headers: {
                     Authorization: `Bearer ${generatedToken}`,

@@ -53,7 +53,7 @@ const App: React.FC = () => {
       first_name: tgData?.first_name!,
       username: tgData?.username || '',
       language_code: tgData?.language_code!,
-      profitPerHour:0
+      profitPerHour: 0
     };
     setUserData(userDatas);
     setTelegramData(true);
@@ -256,7 +256,7 @@ const App: React.FC = () => {
                   first_name: userData?.first_name,
                   username: userData?.username,
                   language_code: userData?.language_code,
-                  coin:0,
+                  coin: 0,
                   profitPerHour: 0,
                 }, {
                   headers: {
@@ -331,91 +331,96 @@ const App: React.FC = () => {
       </div>
     </div>;
 
-  const MineScreen = () => <div className="bg-[#1c1f24] min-h-screen p-4">
-  <div className="flex justify-between mb-4">
-    <button className="text-white">PR&Team</button>
-    <button className="text-gray-500">Markets</button>
-    <button className="text-gray-500">Legal</button>
-    <button className="text-gray-500">Web3</button>
-    <button className="text-gray-500">Specials</button>
-  </div>
-  <div className="grid grid-cols-2 gap-4">
-    <TeamCard
-      imageSrc={mineImage1}
-      title="CEO"
-      profitPerHour="321"
-      level="3"
-      totalProfit="1,55K"
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="Marketing"
-      profitPerHour="225"
-      level="3"
-      totalProfit="1,55K"
-      isLocked={true}
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="IT Team"
-      profitPerHour="772"
-      level="3"
-      totalProfit="3,1K"
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="Support Team"
-      profitPerHour="145"
-      level="2"
-      totalProfit="957"
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="HamsterBook"
-      profitPerHour="70"
-      level="1"
-      totalProfit="551"
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="HamsterTube"
-      profitPerHour="90"
-      level="0"
-      totalProfit="HamsterBook lvl 5"
-      isLocked={true}
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="X"
-      profitPerHour="80"
-      level="0"
-      totalProfit="550"
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="Cointelegraph"
-      profitPerHour="40"
-      level="0"
-      totalProfit="350"
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="HamsterGram"
-      profitPerHour="50"
-      level="0"
-      totalProfit="HamsterTube lvl 8"
-      isLocked={true}
-    />
-    <TeamCard
-      imageSrc={mineImage1}
-      title="TikTok"
-      profitPerHour="100"
-      level="0"
-      totalProfit="HamsterGram lvl 3"
-      isLocked={true}
-    />
-  </div>
-</div>;
+  const MineScreen = () =>
+    <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
+      <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
+        <div className="bg-[#1c1f24] min-h-screen p-4">
+          <div className="flex justify-between mb-4">
+            <button className="text-white">PR&Team</button>
+            <button className="text-gray-500">Markets</button>
+            <button className="text-gray-500">Legal</button>
+            <button className="text-gray-500">Web3</button>
+            <button className="text-gray-500">Specials</button>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <TeamCard
+              imageSrc={mineImage1}
+              title="CEO"
+              profitPerHour="321"
+              level="3"
+              totalProfit="1,55K"
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="Marketing"
+              profitPerHour="225"
+              level="3"
+              totalProfit="1,55K"
+              isLocked={true}
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="IT Team"
+              profitPerHour="772"
+              level="3"
+              totalProfit="3,1K"
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="Support Team"
+              profitPerHour="145"
+              level="2"
+              totalProfit="957"
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="HamsterBook"
+              profitPerHour="70"
+              level="1"
+              totalProfit="551"
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="HamsterTube"
+              profitPerHour="90"
+              level="0"
+              totalProfit="HamsterBook lvl 5"
+              isLocked={true}
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="X"
+              profitPerHour="80"
+              level="0"
+              totalProfit="550"
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="Cointelegraph"
+              profitPerHour="40"
+              level="0"
+              totalProfit="350"
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="HamsterGram"
+              profitPerHour="50"
+              level="0"
+              totalProfit="HamsterTube lvl 8"
+              isLocked={true}
+            />
+            <TeamCard
+              imageSrc={mineImage1}
+              title="TikTok"
+              profitPerHour="100"
+              level="0"
+              totalProfit="HamsterGram lvl 3"
+              isLocked={true}
+            />
+          </div>
+        </div>
+      </div>
+    </div>;
 
   const FriendsScreen = () => <div>Friends Screen</div>;
   const EarnScreen = () => <div>Earn Screen</div>;

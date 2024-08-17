@@ -1,3 +1,5 @@
+import { mineImage1 } from "../images";
+
 type TeamCardProps = {
     imageSrc: string;
     title: string;
@@ -10,7 +12,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHo
     <div className="bg-[#292c34] rounded-lg p-4 w-full relative flex flex-col items-center">
       {isLocked && (
         <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-lg">
-          <img src="lock_icon.png" alt="Locked" className="w-12 h-12" />
+          <img src={mineImage1} alt="Locked" className="w-12 h-12" />
         </div>
       )}
       {!isLocked && (

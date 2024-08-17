@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { lockImage } from "../images";
 
 type TeamCardProps = {
@@ -7,7 +8,7 @@ type TeamCardProps = {
     level: string;
     totalProfit: string;
     isLocked?: boolean;
-    onClickEvent:  React.MouseEventHandler<HTMLButtonElement>;
+    onClickEvent: React.MouseEventHandler<HTMLButtonElement>;
 };
 export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHour, level, totalProfit, isLocked = false, onClickEvent }) => (
     <div className="bg-[#292c34] rounded-lg p-4 w-full relative flex flex-col items-center">
@@ -42,25 +43,44 @@ type PurchaseModalProps = {
 };
 
 export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose }) => {
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+                onClose();
+            }
+        };
+
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpen, onClose]);
     return (
-        <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-20 h-80">
-        <div
-            className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'} z-50`}
-            style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
-        >
+        <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-20">
             <div
-                className={`fixed bottom-0 left-0 w-full bg-[#1d2025] p-4 rounded-t-lg transition-transform ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
+                className={`fixed inset-0 bg-black bg-opacity-50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'} z-50`}
+                style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
             >
-                <button
-                    onClick={onClose}
-                    className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+                <div
+                    ref={modalRef}
+                    className={`fixed bottom-0 left-0 w-full bg-[#1d2025] p-4 rounded-t-lg h-80 transition-transform ${isOpen ? 'translate-y-0' : 'translate-y-full'}`}
                 >
-                    &times;
-                </button>
-                <h2 className="text-lg font-bold">Purchase Details</h2>
-                <p>Your purchase information goes here.</p>
-                {/* Add more content as needed */}
+                    <button
+                        onClick={onClose}
+                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
+                    >
+                        &times;
+                    </button>
+                    <h2 className="text-lg font-bold">Purchase Details</h2>
+                    <p>Your purchase information goes here.</p>
+                    {/* Add more content as needed */}
+                </div>
             </div>
-        </div></div>
+        </div>
     );
 };

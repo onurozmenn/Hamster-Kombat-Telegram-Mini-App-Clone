@@ -7,6 +7,7 @@ import dailyCombo from "./daily-combo.png";
 import mainCharacter from "./main-character.png";
 import hamsterCoin from "./hamster-coin.png";
 import mineImage1 from "./mineImage1.png";
+import lockImage from "./lock.png";
 
 export {
     hamsterExchange,
@@ -17,5 +18,6 @@ export {
     dailyCombo,
     mainCharacter,
     hamsterCoin,
-    mineImage1
+    mineImage1,
+    lockImage
 };

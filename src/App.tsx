@@ -10,6 +10,7 @@ import Friends from './icons/Friends';
 import Coins from './icons/Coins';
 import axios from 'axios';
 import WebApp from '@twa-dev/sdk'
+import { TeamCard } from './icons/TeamCard';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -287,8 +288,6 @@ const App: React.FC = () => {
 
   // Define your different screen components
   const ExchangeScreen = () =>
-
-
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
       <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
         <div className="px-4 mt-6 flex justify-between gap-2">
@@ -330,10 +329,93 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
-    ;
+    </div>;
 
-  const MineScreen = () => <div>Mine Screen</div>;
+  const MineScreen = () => <div className="bg-[#1c1f24] min-h-screen p-4">
+  <div className="flex justify-between mb-4">
+    <button className="text-white">PR&Team</button>
+    <button className="text-gray-500">Markets</button>
+    <button className="text-gray-500">Legal</button>
+    <button className="text-gray-500">Web3</button>
+    <button className="text-gray-500">Specials</button>
+  </div>
+  <div className="grid grid-cols-2 gap-4">
+    <TeamCard
+      imageSrc="ceo_image.png"
+      title="CEO"
+      profitPerHour="321"
+      level="3"
+      totalProfit="1,55K"
+    />
+    <TeamCard
+      imageSrc="marketing_image.png"
+      title="Marketing"
+      profitPerHour="225"
+      level="3"
+      totalProfit="1,55K"
+      isLocked={true}
+    />
+    <TeamCard
+      imageSrc="it_team_image.png"
+      title="IT Team"
+      profitPerHour="772"
+      level="3"
+      totalProfit="3,1K"
+    />
+    <TeamCard
+      imageSrc="support_team_image.png"
+      title="Support Team"
+      profitPerHour="145"
+      level="2"
+      totalProfit="957"
+    />
+    <TeamCard
+      imageSrc="hamsterbook_image.png"
+      title="HamsterBook"
+      profitPerHour="70"
+      level="1"
+      totalProfit="551"
+    />
+    <TeamCard
+      imageSrc="hamstertube_image.png"
+      title="HamsterTube"
+      profitPerHour="90"
+      level="0"
+      totalProfit="HamsterBook lvl 5"
+      isLocked={true}
+    />
+    <TeamCard
+      imageSrc="x_image.png"
+      title="X"
+      profitPerHour="80"
+      level="0"
+      totalProfit="550"
+    />
+    <TeamCard
+      imageSrc="cointelegraph_image.png"
+      title="Cointelegraph"
+      profitPerHour="40"
+      level="0"
+      totalProfit="350"
+    />
+    <TeamCard
+      imageSrc="hamstergram_image.png"
+      title="HamsterGram"
+      profitPerHour="50"
+      level="0"
+      totalProfit="HamsterTube lvl 8"
+      isLocked={true}
+    />
+    <TeamCard
+      imageSrc="tiktok_image.png"
+      title="TikTok"
+      profitPerHour="100"
+      level="0"
+      totalProfit="HamsterGram lvl 3"
+      isLocked={true}
+    />
+  </div>
+</div>;
   const FriendsScreen = () => <div>Friends Screen</div>;
   const EarnScreen = () => <div>Earn Screen</div>;
   const AirdropScreen = () => <div>Airdrop Screen</div>;

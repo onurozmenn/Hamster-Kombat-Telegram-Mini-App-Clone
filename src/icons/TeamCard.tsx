@@ -37,9 +37,9 @@ export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHo
                 <img src={imageSrc} alt={title} className="w-16 h-16 mb-2" />
                 <h2 className="text-white text-lg font-bold">{title}</h2>
                 <p className="text-gray-400">Saat başı kar</p>
-                <p style={{display:"ruby"}} className="text-yellow-400 font-bold">{profitPerHour} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></p>
+                <p style={{display:"ruby"}}className={`text-yellow-400 font-bold  ${dollarCoinClass}`}>{profitPerHour} <img src={dollarCoin} className={`h-4 pb-1 pr-1 ${dollarCoinClass}`} ></img></p>
                 <p className="text-gray-400 text-sm mt-2">lvl {level}</p>
-                <button style={{display:"ruby"}} onClick={onClickEvent} className="hover:bg-[#5ee2f4] text-white rounded p-1 px-4 mt-1 bg-[#43433b99] font-bold">{priceByLevel} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></button>
+                <button style={{display:"ruby"}} onClick={onClickEvent} className="hover:bg-[#5ee2f4] text-white rounded p-1 px-4 mt-1 bg-[#43433b99] font-bold">{priceByLevel} <img src={dollarCoin} className={`h-4 pb-1 pr-1 ${canBuy}`}></img></button>
             </>
         )}
     </div>

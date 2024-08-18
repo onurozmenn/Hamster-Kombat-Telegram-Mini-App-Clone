@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter, mineImage1 } from './images';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import Mine from './icons/Mine';
@@ -10,6 +10,7 @@ import Coins from './icons/Coins';
 import axios from 'axios';
 import WebApp from '@twa-dev/sdk'
 import { PurchaseModal, TeamCard } from './icons/TeamCard';
+import { MinerData, minerList } from './utils/Miners';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -45,10 +46,6 @@ const App: React.FC = () => {
     language_code: string;
     profitPerHour: number;
     minerData: MinerData;
-  }
-  interface MinerData {
-    ceo: number;
-    marketing: number;
   }
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
@@ -303,13 +300,16 @@ const App: React.FC = () => {
       console.log(telegramID);
       console.log(userData);
       console.log(pointsRef.current);
+      const minerData = minerList.reduce((acc, miner) => {
+        const currentLevel = (userData?.minerData!)[miner.dbName] || 0;
+        acc[miner.dbName] = minerName === miner.dbName ? currentLevel + 1 : currentLevel;
+        return acc;
+      }, {} as Record<string, number>);
+      
       await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
         updatedData: {
-          minerData: {
-            ceo: minerName == "ceo" ? userData?.minerData.ceo! + 1 : userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
-
-            marketing: minerName == "marketing" ? userData?.minerData.marketing! + 1 : userData?.minerData.marketing!,
-          },
+          
+          minerData,
           coin: (pointsRef.current - cost),
           profitPerHour: newHourlyProfit
         }
@@ -329,7 +329,7 @@ const App: React.FC = () => {
         profitPerHour: newHourlyProfit
       }
       setUserData(updatedData as UserData);
-      setPoints(points-cost);
+      setPoints(points - cost);
       setProfitPerHour(newHourlyProfit);
     } catch (error) {
       console.log(error);
@@ -425,179 +425,26 @@ const App: React.FC = () => {
               <button className="text-gray-500">Specials</button>
             </div>
             <div style={{ paddingBottom: "100px" }} className="grid grid-cols-2 gap-4">
-              <TeamCard
-                imageSrc={mineImage1}
-                title="CEO"
-                profitPerHour="3,6K"
-                level={userData?.minerData.ceo ? userData.minerData.ceo : 0}
-                totalProfit="100"
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="Marketing"
-                profitPerHour="200"
-                level={userData?.minerData.marketing ? userData.minerData.marketing : 0}
-                totalProfit="7,2K"
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "Marketing",
-                    price: 200,
-                    profitPerHour: 7200
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="IT Team"
-                profitPerHour="772"
-                level={0}
-                totalProfit="3,1K"
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="Support Team"
-                profitPerHour="145"
-                level={0}
-                totalProfit="957"
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="HamsterBook"
-                profitPerHour="70"
-                level={0}
-                totalProfit="551"
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="HamsterTube"
-                profitPerHour="90"
-                level={0}
-                totalProfit="100"
-                isLocked={true}
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="X"
-                profitPerHour="80"
-                level={0}
-                totalProfit="550"
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="Cointelegraph"
-                profitPerHour="40"
-                level={0}
-                totalProfit="350"
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="Cointelegraph"
-                profitPerHour="40"
-                level={0}
-                totalProfit="350"
-                isLocked={true}
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
-              <TeamCard
-                imageSrc={mineImage1}
-                title="TikTok"
-                profitPerHour="100"
-                level={0}
-                totalProfit="500"
-                isLocked={true}
-                onClickEvent={() => {
-                  setModalData({
-                    image: mineImage1,
-                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
-                    name: "CEO",
-                    price: 100,
-                    profitPerHour: 3600
-                  } as PurchaseModalData);
-                  handleButtonClick();
-                }}
-              />
+              {minerList.map((miner, index) => (
+                <TeamCard
+                  key={index}
+                  imageSrc={miner.imageSrc}
+                  title={miner.name}
+                  profitPerHour={miner.profitByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString()}
+                  level={userData?.minerData.ceo ? userData.minerData.ceo : 0}
+                  priceByLevel={miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString()}
+                  onClickEvent={() => {
+                    setModalData({
+                      image: miner.imageSrc,
+                      desc: miner.desc,
+                      name: miner.name,
+                      price: miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0],
+                      profitPerHour: miner.profitByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0],
+                    } as PurchaseModalData);
+                    handleButtonClick();
+                  }}
+                />
+              ))}
             </div>
           </div>
         </div>

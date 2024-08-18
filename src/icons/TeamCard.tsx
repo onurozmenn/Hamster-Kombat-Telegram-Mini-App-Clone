@@ -6,11 +6,11 @@ type TeamCardProps = {
     title: string;
     profitPerHour: string;
     level: number;
-    totalProfit: string;
+    priceByLevel: string;
     isLocked?: boolean;
     onClickEvent: React.MouseEventHandler<HTMLButtonElement>;
 };
-export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHour, level, totalProfit, isLocked = false, onClickEvent }) => (
+export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHour, level, priceByLevel, isLocked = false, onClickEvent }) => (
     <div className="bg-[#292c34] rounded-lg p-4 w-full relative flex flex-col items-center">
         {isLocked && (
             <>
@@ -22,7 +22,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHo
                 <p className="text-gray-400">Saat başı kar</p>
                 <p style={{display:"ruby"}} className="text-yellow-400 font-bold">{profitPerHour} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></p>
                 <p className="text-gray-400 text-sm mt-2">lvl {level}</p>
-                <p style={{display:"ruby"}} className="text-yellow-400 font-bold">{totalProfit} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></p>
+                <p style={{display:"ruby"}} className="text-yellow-400 font-bold">{priceByLevel} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></p>
             </>
         )}
         {!isLocked && (
@@ -32,11 +32,13 @@ export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHo
                 <p className="text-gray-400">Saat başı kar</p>
                 <p style={{display:"ruby"}} className="text-yellow-400 font-bold">{profitPerHour} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></p>
                 <p className="text-gray-400 text-sm mt-2">lvl {level}</p>
-                <button style={{display:"ruby"}} onClick={onClickEvent} className="hover:bg-[#5ee2f4] text-white rounded p-1 px-4 mt-1 bg-[#43433b99] font-bold">{totalProfit} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></button>
+                <button style={{display:"ruby"}} onClick={onClickEvent} className="hover:bg-[#5ee2f4] text-white rounded p-1 px-4 mt-1 bg-[#43433b99] font-bold">{priceByLevel} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></button>
             </>
         )}
     </div>
 );
+
+
 type PurchaseModalProps = {
     isOpen: boolean;
     onClose: () => void;
@@ -58,7 +60,6 @@ export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose, d
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
-                console.log("asdasd");
                 setAnimationClass('translate-y-full');
                 setOpacityAnimationClass('opacity-0');
                 onClose();

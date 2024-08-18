@@ -320,6 +320,19 @@ const App: React.FC = () => {
           Authorization: `Bearer ${generatedToken}`,
         },
       });
+      const updatedData = {
+        first_name: userData?.first_name,
+        language_code: userData?.language_code,
+        username: userData?.username,
+        telegramID: userData?.telegramID,minerData: {
+          ceo: minerName=="ceo"?userData?.minerData.ceo!+1:userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
+          
+          marketing: minerName=="marketing"?userData?.minerData.marketing!+1:userData?.minerData.marketing!,
+        },
+        coin:(userData?.coin!-cost),
+        profitPerHour: newHourlyProfit
+      }
+      setUserData(updatedData as UserData);
     } catch (error) {
       console.log(error);
     }

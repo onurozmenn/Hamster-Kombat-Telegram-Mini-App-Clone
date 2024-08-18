@@ -359,8 +359,8 @@ const App: React.FC = () => {
   function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
     const priceByLevel = Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
     const profitPerHour = Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
-    const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level - 1));
-    return { priceByLevel, profitPerHour, profitPerHourNextLevel };
+    const profitPerHourPrevLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level - 1));
+    return { priceByLevel, profitPerHour, profitPerHourPrevLevel };
   }
 
 

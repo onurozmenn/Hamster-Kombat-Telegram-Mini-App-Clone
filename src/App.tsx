@@ -295,6 +295,7 @@ const App: React.FC = () => {
 
   const levelUpMiner = async (minerName: string, cost: number, newHourlyProfit: number, telegramID: string, generatedToken: string) => {
     try {
+      setLoading(true);
       console.log(newHourlyProfit)
       const minerData = minerList.reduce((acc, miner) => {
         const currentLevel = (userData?.minerData!)[miner.dbName] || 0;
@@ -327,8 +328,14 @@ const App: React.FC = () => {
       setUserData(updatedData as UserData);
       setPoints(points - cost);
       setProfitPerHour(newHourlyProfit);
+      
     } catch (error) {
       console.log(error);
+    }finally{
+      
+      setLoading(false);
+      handleCloseModal;
+      setModalData({ desc: "", image: "", name: "", price: 0, profitPerHour: 0 } as PurchaseModalData);
     }
   }
 

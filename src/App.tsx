@@ -475,7 +475,7 @@ const App: React.FC = () => {
                         desc: miner.desc,
                         name: miner.name,
                         price: priceByLevel,
-                        profitPerHour: level==0?miner.basePrice:profitPerHourNextLevel - profitPerHour,
+                        profitPerHour: level==0?miner.baseProfit:profitPerHourNextLevel - profitPerHour,
                       } as PurchaseModalData);
                       handleButtonClick();
                     }}

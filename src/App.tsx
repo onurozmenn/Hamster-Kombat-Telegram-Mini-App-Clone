@@ -298,21 +298,23 @@ const App: React.FC = () => {
   }, [telegramData]);
 
 
-  const levelUpMiner=async (minerName:string,cost:number,newHourlyProfit:number,telegramID:string,generatedToken:string)=> {
+  const levelUpMiner = async (minerName: string, cost: number, newHourlyProfit: number, telegramID: string, generatedToken: string) => {
     try {
       console.log(minerName);
       console.log(cost);
       console.log(newHourlyProfit);
       console.log(telegramID);
+      console.log(userData);
+      console.log(generatedToken);
       console.log(generatedToken);
       await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
         updatedData: {
           minerData: {
-            ceo: minerName=="ceo"?userData?.minerData.ceo!+1:userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
-            
-            marketing: minerName=="marketing"?userData?.minerData.marketing!+1:userData?.minerData.marketing!,
+            ceo: minerName == "ceo" ? userData?.minerData.ceo! + 1 : userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
+
+            marketing: minerName == "marketing" ? userData?.minerData.marketing! + 1 : userData?.minerData.marketing!,
           },
-          coin:(userData?.coin!-cost),
+          coin: (userData?.coin! - cost),
           profitPerHour: newHourlyProfit
         }
       }, {
@@ -324,12 +326,11 @@ const App: React.FC = () => {
         first_name: userData?.first_name,
         language_code: userData?.language_code,
         username: userData?.username,
-        telegramID: userData?.telegramID,minerData: {
-          ceo: minerName=="ceo"?userData?.minerData.ceo!+1:userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
-          
-          marketing: minerName=="marketing"?userData?.minerData.marketing!+1:userData?.minerData.marketing!,
+        telegramID: userData?.telegramID, minerData: {
+          ceo: minerName == "ceo" ? userData?.minerData.ceo! + 1 : userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
+          marketing: minerName == "marketing" ? userData?.minerData.marketing! + 1 : userData?.minerData.marketing!,
         },
-        coin:(userData?.coin!-cost),
+        coin: (userData?.coin! - cost),
         profitPerHour: newHourlyProfit
       }
       setUserData(updatedData as UserData);
@@ -412,7 +413,7 @@ const App: React.FC = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         data={modalData!}
-        onClickEvent={() => levelUpMiner(modalData.name.toLowerCase(), modalData.price, modalData.profitPerHour+profitPerHour,userData?.telegramID!,token!)}
+        onClickEvent={() => levelUpMiner(modalData.name.toLowerCase(), modalData.price, modalData.profitPerHour + profitPerHour, userData?.telegramID!, token!)}
 
       />
 

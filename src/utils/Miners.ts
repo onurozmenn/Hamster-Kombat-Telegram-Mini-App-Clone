@@ -5,8 +5,10 @@ export type MinerType = {
     dbName: string;
     name: string;
     desc: string;
-    priceByLevel: Array<number>;
-    profitByLevel: Array<number>;
+    basePrice: number;
+    baseProfit: number;
+    priceRate: number;
+    profitRate: number;
     requiredMine?: string;
     requiredMineLevel?: number;
 }
@@ -17,15 +19,19 @@ export const minerList: Array<MinerType> = [
         dbName: "ceo",
         name: "CEO",
         desc: "Lorem ipsum bla bla bla",
-        priceByLevel: [100, 200, 400, 800, 1600, 3200, 6400],
-        profitByLevel: [3600, 7200, 10800, 14400, 18000, 21600],
+        basePrice: 100,
+        baseProfit: 10,
+        priceRate:1.35,
+        profitRate:1.25
     }, {
         imageSrc: mineImage1,
         dbName: "marketing",
         name: "Marketing",
         desc: "Lorem ipsum bla bla bla marketing",
-        priceByLevel: [10, 20, 40, 80, 160, 320, 640],
-        profitByLevel: [3100, 7100, 10100, 14100, 18000, 21100],
+        basePrice: 100,
+        baseProfit: 10,
+        priceRate:1.45,
+        profitRate:1.35,
         requiredMine: "ceo",
         requiredMineLevel: 5
     }];

@@ -154,6 +154,7 @@ const App: React.FC = () => {
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
     return `+${profit}`;
   };
+
   const pointsRef = useRef(points);
 
   useEffect(() => {
@@ -305,10 +306,10 @@ const App: React.FC = () => {
         acc[miner.dbName] = minerName === miner.dbName ? currentLevel + 1 : currentLevel;
         return acc;
       }, {} as Record<string, number>);
-      
+
       await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
         updatedData: {
-          
+
           minerData,
           coin: (pointsRef.current - cost),
           profitPerHour: newHourlyProfit
@@ -395,7 +396,11 @@ const App: React.FC = () => {
         </div>
       </div>
     </div>;
-
+  function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
+    const priceByLevel = Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
+    const profitPerHour = Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
+    return { priceByLevel, profitPerHour };
+  }
   interface PurchaseModalData {
     image: string;
     name: string;
@@ -425,26 +430,34 @@ const App: React.FC = () => {
               <button className="text-gray-500">Specials</button>
             </div>
             <div style={{ paddingBottom: "100px" }} className="grid grid-cols-2 gap-4">
-              {minerList.map((miner, index) => (
-                <TeamCard
-                  key={index}
-                  imageSrc={miner.imageSrc}
-                  title={miner.name}
-                  profitPerHour={(miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0] || '999').toString()}
-                  level={userData?.minerData.ceo ? userData.minerData.ceo : 0}
-                  priceByLevel={(miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0] || '999').toString()}
-                  onClickEvent={() => {
-                    setModalData({
-                      image: miner.imageSrc,
-                      desc: miner.desc,
-                      name: miner.name,
-                      price: miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]?miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]:999,
-                      profitPerHour: miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]?miner.profitByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]:999,
-                    } as PurchaseModalData);
-                    handleButtonClick();
-                  }}
-                />
-              ))}
+              {minerList.map((miner, index) => {
+                // Kullanıcı verilerinden mevcut madenci seviyesini al
+                const level = userData?.minerData[miner.dbName] ?? 0;
+
+                // calculateLevelData fonksiyonunu çağırarak fiyat ve saat başı getiri hesapla
+                const { priceByLevel, profitPerHour } = calculateLevelData(miner.basePrice, miner.baseProfit, miner.priceRate, miner.profitRate, level);
+
+                return (
+                  <TeamCard
+                    key={index}
+                    imageSrc={miner.imageSrc}
+                    title={miner.name}
+                    profitPerHour={profitPerHour.toString()}
+                    level={level}
+                    priceByLevel={priceByLevel.toString()}
+                    onClickEvent={() => {
+                      setModalData({
+                        image: miner.imageSrc,
+                        desc: miner.desc,
+                        name: miner.name,
+                        price: priceByLevel,
+                        profitPerHour: profitPerHour,
+                      } as PurchaseModalData);
+                      handleButtonClick();
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>

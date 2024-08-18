@@ -335,7 +335,6 @@ const App: React.FC = () => {
       
       setLoading(false);
       handleCloseModal();
-      setModalData({ desc: "", image: "", name: "", price: 0, profitPerHour: 0 } as PurchaseModalData);
     }
   }
 
@@ -349,9 +348,8 @@ const App: React.FC = () => {
 
     const timer = setTimeout(() => {
       setIsModalOpen(false);
-      
       setModalData({ desc: "", image: "", name: "", price: 0, profitPerHour: 0 } as PurchaseModalData);
-    }, 200); // 0.3 saniye
+    }, 100); // 0.3 saniye
     return () => clearTimeout(timer);
 
   };

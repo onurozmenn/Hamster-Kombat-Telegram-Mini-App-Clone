@@ -337,18 +337,18 @@ const App: React.FC = () => {
         setLoading(false);
         handleCloseModal();
       }
-    }else{
+    } else {
       WebApp.showPopup({
         message: "Yeterli paran yok",
         buttons: [
-            {id: '1', type: 'default', text: 'Tamam'},
+          { id: '1', type: 'close'},
         ]
-    }, function(button_id) {
+      }, function (button_id) {
         if (button_id === '1') {
-            // Tamam butonuna tıklanınca yapılacak işlemler
-            console.log("Tamam'a tıklandı!");
+          // Tamam butonuna tıklanınca yapılacak işlemler
+          console.log("Tamam'a tıklandı!");
         }
-    });
+      });
     }
   }
 

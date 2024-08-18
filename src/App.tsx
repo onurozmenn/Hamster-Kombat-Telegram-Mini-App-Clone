@@ -467,6 +467,8 @@ const App: React.FC = () => {
                     profitPerHour={profitPerHour.toString()}
                     userCoin={pointsRef.current}
                     level={level}
+                    requiredMine={miner.requiredMine}
+                    requiredMineLevel={miner.requiredMineLevel}
                     priceByLevel={priceByLevel.toString()}
                     isLocked={!miner.requiredMine || 
                       !miner.requiredMineLevel ||

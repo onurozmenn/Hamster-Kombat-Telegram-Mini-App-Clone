@@ -8,11 +8,13 @@ type TeamCardProps = {
     level: number;
     userCoin: number;
     priceByLevel: string;
+    requiredMine?: string;
+    requiredMineLevel?:number;
     isLocked?: boolean;
     onClickEvent: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHour, level, userCoin, priceByLevel, isLocked = false, onClickEvent }) => {
+export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHour, level, userCoin, priceByLevel,requiredMine="",requiredMineLevel=0, isLocked = false, onClickEvent }) => {
     
     const dollarCoinClass = level === 0 ? "dollar-coin-red" : "";
     const canBuy = userCoin >= parseInt(priceByLevel) ? "" : "dollar-coin-red";
@@ -23,6 +25,9 @@ export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHo
             <>
                 <div className="z-10 absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-lg">
                     <img src={lockImage} alt="Locked" className="w-12 h-12" />
+                    <p>Gerekli:</p>
+                    <p>{requiredMine}</p>
+                    <p>{requiredMineLevel} lvl</p>
                 </div>
                 <img src={imageSrc} alt={title} className="w-16 h-16 mb-2" />
                 <h2 className="text-white text-lg font-bold">{title}</h2>

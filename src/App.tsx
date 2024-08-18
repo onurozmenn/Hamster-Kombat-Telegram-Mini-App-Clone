@@ -356,14 +356,6 @@ const App: React.FC = () => {
     </div>;
 
 
-  function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
-    const priceByLevel = Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
-    const profitPerHour = Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
-    const profitPerHourPrevLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level - 1));
-    return { priceByLevel, profitPerHour, profitPerHourPrevLevel };
-  }
-
-
   const levelUpMiner = async (minerName: string, cost: number, newHourlyProfit: number, telegramID: string, generatedToken: string) => {
     if (pointsRef.current >= cost) {
       try {
@@ -439,6 +431,12 @@ const App: React.FC = () => {
     price: number;
   }
 
+  function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
+    const priceByLevel = level == 0? initialPrice: Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
+    const profitPerHour = level == 0? initialProfit:Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
+    const profitPerHourNextLevel =Math.round(initialProfit * Math.pow(profitIncreaseRate, level + 1));
+    return { priceByLevel, profitPerHour, profitPerHourNextLevel };
+  }
   const [modalData, setModalData] = useState<PurchaseModalData>({ desc: "", image: "", name: "", price: 0, profitPerHour: 0 } as PurchaseModalData)
   
   const MineScreen = () =>
@@ -448,9 +446,7 @@ const App: React.FC = () => {
         onClose={handleCloseModal}
         data={modalData!}
         onClickEvent={() => levelUpMiner(modalData.name.toLowerCase(), modalData.price, modalData.profitPerHour + profitPerHour, userData?.telegramID!, token!)}
-
       />
-
       <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
         <div className="px-4 mt-6 flex justify-between gap-2">
           <div className="bg-[#1c1f24] min-h-screen p-4 w-full">
@@ -463,12 +459,8 @@ const App: React.FC = () => {
             </div>
             <div style={{ paddingBottom: "100px" }} className="grid grid-cols-2 gap-4">
               {minerList.map((miner, index) => {
-                // Kullanıcı verilerinden mevcut madenci seviyesini al
                 const level = userData?.minerData[miner.dbName] ?? 0;
-
-                // calculateLevelData fonksiyonunu çağırarak fiyat ve saat başı getiri hesapla
-                const { priceByLevel, profitPerHour, profitPerHourPrevLevel } = calculateLevelData(miner.basePrice, miner.baseProfit, miner.priceRate, miner.profitRate, level);
-
+                const { priceByLevel, profitPerHour, profitPerHourNextLevel } = calculateLevelData(miner.basePrice, miner.baseProfit, miner.priceRate, miner.profitRate, level);
                 return (
                   <TeamCard
                     key={index}
@@ -483,7 +475,7 @@ const App: React.FC = () => {
                         desc: miner.desc,
                         name: miner.name,
                         price: priceByLevel,
-                        profitPerHour: profitPerHour - profitPerHourPrevLevel,
+                        profitPerHour: level==0?miner.basePrice:profitPerHourNextLevel - profitPerHour,
                       } as PurchaseModalData);
                       handleButtonClick();
                     }}

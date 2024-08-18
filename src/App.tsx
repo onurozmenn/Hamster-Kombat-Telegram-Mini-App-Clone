@@ -338,17 +338,9 @@ const App: React.FC = () => {
         handleCloseModal();
       }
     } else {
-      WebApp.showPopup({
-        message: "Yeterli paran yok",
-        buttons: [
-          { id: '1', type: 'close'},
-        ]
-      }, function (button_id) {
-        if (button_id === '1') {
-          // Tamam butonuna tıklanınca yapılacak işlemler
-          console.log("Tamam'a tıklandı!");
-        }
-      });
+      WebApp.showAlert("Yeterli paran yok", function() {
+        console.log("Tamam'a tıklandı!");
+    });
     }
   }
 

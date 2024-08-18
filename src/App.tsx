@@ -334,7 +334,7 @@ const App: React.FC = () => {
     }finally{
       
       setLoading(false);
-      handleCloseModal;
+      handleCloseModal();
       setModalData({ desc: "", image: "", name: "", price: 0, profitPerHour: 0 } as PurchaseModalData);
     }
   }

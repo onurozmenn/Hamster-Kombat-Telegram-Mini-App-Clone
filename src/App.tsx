@@ -359,7 +359,7 @@ const App: React.FC = () => {
   function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
     const priceByLevel = Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
     const profitPerHour = Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
-    const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level + 1));
+    const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level - 1));
     return { priceByLevel, profitPerHour, profitPerHourNextLevel };
   }
 
@@ -467,7 +467,7 @@ const App: React.FC = () => {
                 const level = userData?.minerData[miner.dbName] ?? 0;
 
                 // calculateLevelData fonksiyonunu çağırarak fiyat ve saat başı getiri hesapla
-                const { priceByLevel, profitPerHour, profitPerHourNextLevel } = calculateLevelData(miner.basePrice, miner.baseProfit, miner.priceRate, miner.profitRate, level);
+                const { priceByLevel, profitPerHour, profitPerHourPrevLevel } = calculateLevelData(miner.basePrice, miner.baseProfit, miner.priceRate, miner.profitRate, level);
 
                 return (
                   <TeamCard
@@ -483,7 +483,7 @@ const App: React.FC = () => {
                         desc: miner.desc,
                         name: miner.name,
                         price: priceByLevel,
-                        profitPerHour: profitPerHourNextLevel - profitPerHour,
+                        profitPerHour: profitPerHour - profitPerHourPrevLevel,
                       } as PurchaseModalData);
                       handleButtonClick();
                     }}

@@ -62,12 +62,12 @@ const App: React.FC = () => {
     setTelegramData(true);
     console.log("telegram data değişti");
     handleScreenChange("exchange");
-    setProfitPerHour(3600);
+    setProfitPerHour(0);
   }, [])
 
   const [userData, setUserData] = useState<UserData | null>(null)
   const [token, setToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(true); // Loading state
   const [telegramData, setTelegramData] = useState<Boolean | null>(null);
   const [levelIndex, setLevelIndex] = useState(0);
   const [points, setPoints] = useState(0);
@@ -225,7 +225,7 @@ const App: React.FC = () => {
           });
           setUserData(response.data);
           setPoints(response.data["coin"]);
-          console.log(response.data["first_name"]);
+          setProfitPerHour(response.data["profitPerHour"]);
 
           if (userData?.first_name !== response.data["first_name"] ||
             userData?.username !== response.data["username"]) {

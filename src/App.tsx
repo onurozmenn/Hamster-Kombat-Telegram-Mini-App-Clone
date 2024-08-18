@@ -266,7 +266,10 @@ const App: React.FC = () => {
           if (axios.isAxiosError(error)) {
             if (error.response?.status === 404) {
               console.log('User not found');
-
+              const minerData = minerList.reduce((acc, miner) => {
+                acc[miner.dbName] = 0;
+                return acc;
+              }, {} as Record<string, number>);
               try {
                 const response = await axios.post('https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users', {
                   telegramID: userData?.telegramID,
@@ -275,6 +278,7 @@ const App: React.FC = () => {
                   language_code: userData?.language_code,
                   coin: 0,
                   profitPerHour: 0,
+                  minerData
                 }, {
                   headers: {
                     Authorization: `Bearer ${generatedToken}`,

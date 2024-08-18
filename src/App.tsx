@@ -430,16 +430,16 @@ const App: React.FC = () => {
                   key={index}
                   imageSrc={miner.imageSrc}
                   title={miner.name}
-                  profitPerHour={miner.profitByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString()}
+                  profitPerHour={miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]?miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString():"999"}
                   level={userData?.minerData.ceo ? userData.minerData.ceo : 0}
-                  priceByLevel={miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString()}
+                  priceByLevel={miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]?miner.profitByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString():"999"}
                   onClickEvent={() => {
                     setModalData({
                       image: miner.imageSrc,
                       desc: miner.desc,
                       name: miner.name,
-                      price: miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0],
-                      profitPerHour: miner.profitByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0],
+                      price: miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]?miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]:999,
+                      profitPerHour: miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]?miner.profitByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]:999,
                     } as PurchaseModalData);
                     handleButtonClick();
                   }}

@@ -11,8 +11,6 @@ import axios from 'axios';
 import WebApp from '@twa-dev/sdk'
 import { PurchaseModal, TeamCard } from './icons/TeamCard';
 import { MinerData, minerList } from './utils/Miners';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-
 const App: React.FC = () => {
   const levelNames = [
     "Bronze",    // From 0 to 4999 coins
@@ -111,20 +109,29 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleCardClick = (e: React.PointerEvent<HTMLDivElement>) => {
+  const card = e.currentTarget;
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  const transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
+
+  // Tüm pointer olayları için style değişikliğini uyguluyoruz
+  card.style.transform = transform;
+
+  // Birden fazla dokunuşu işlemek için pointerId'leri takip edebiliriz
+  // Örneğin, her dokunuşu kaydetmek için:
+  setPoints(points + pointsToAdd);
+  setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
+  };
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    card.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
+  
+    // Pointer kaldırıldığında transform sıfırlanır
     setTimeout(() => {
       card.style.transform = '';
     }, 100);
-
-    setPoints(points + pointsToAdd);
-    setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
   };
-
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
   };
@@ -292,20 +299,8 @@ const App: React.FC = () => {
       createToken();
     }
   }, [telegramData]);
-  const handleGesture = Gesture.Tap()
-    .maxDistance(10)
-    .onTouchesDown((event) => {
-      console.log('Touches detected:', event.numberOfTouches);
-    })
-    .onStart(() => {
-      console.log('Gesture started with', 'touches');
-    })
-    .onTouchesMove((event) => {
-      console.log('Touches moving:', event.numberOfTouches);
-    })
-    .onEnd(() => {
-      console.log('Gesture ended with', 'touches');
-    });
+
+  // Define your different screen components
 
   const ExchangeScreen = () =>
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
@@ -339,19 +334,16 @@ const App: React.FC = () => {
         </div>
 
         <div className="px-4 mt-4 flex justify-center">
-
-          <GestureDetector gesture={handleGesture}>
-
-
-            <div
-              className="w-80 h-80 p-4 rounded-full circle-outer"
-              onClick={handleCardClick}
-            >
-              <div className="w-full h-full rounded-full circle-inner">
-                <img src={mainCharacter} alt="Main Character" className="w-full h-full" />
-              </div>
+          
+          <div
+            className="w-80 h-80 p-4 rounded-full circle-outer"
+            onPointerDown={handleCardClick}
+            onPointerUp={handlePointerUp}
+          >
+            <div className="w-full h-full rounded-full circle-inner">
+              <img src={mainCharacter} alt="Main Character" className="w-full h-full" />
             </div>
-          </GestureDetector>
+          </div>
         </div>
       </div>
     </div>;
@@ -363,6 +355,7 @@ const App: React.FC = () => {
     const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level + 1));
     return { priceByLevel, profitPerHour, profitPerHourNextLevel };
   }
+
 
   const levelUpMiner = async (minerName: string, cost: number, newHourlyProfit: number, telegramID: string, generatedToken: string) => {
     if (pointsRef.current >= cost) {
@@ -409,9 +402,9 @@ const App: React.FC = () => {
         handleCloseModal();
       }
     } else {
-      WebApp.showAlert("Yeterli paran yok", function () {
+      WebApp.showAlert("Yeterli paran yok", function() {
         handleCloseModal();
-      });
+    });
     }
   }
 
@@ -440,7 +433,7 @@ const App: React.FC = () => {
   }
 
   const [modalData, setModalData] = useState<PurchaseModalData>({ desc: "", image: "", name: "", price: 0, profitPerHour: 0 } as PurchaseModalData)
-
+  
   const MineScreen = () =>
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
       <PurchaseModal

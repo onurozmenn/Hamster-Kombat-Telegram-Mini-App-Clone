@@ -330,6 +330,7 @@ const App: React.FC = () => {
       }
       setUserData(updatedData as UserData);
       setPoints(points-cost);
+      setProfitPerHour(newHourlyProfit);
     } catch (error) {
       console.log(error);
     }

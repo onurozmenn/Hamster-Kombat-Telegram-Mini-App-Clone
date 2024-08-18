@@ -1,7 +1,6 @@
 'use client'
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
-import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter, mineImage1 } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
@@ -45,6 +44,12 @@ const App: React.FC = () => {
     username?: string;
     language_code: string;
     profitPerHour: number;
+    minerData: MinerData;
+    coin: number;
+  }
+  interface MinerData {
+    ceo: number;
+    marketing: number;
   }
   useEffect(() => {
     const tgData = WebApp.initDataUnsafe.user;
@@ -53,8 +58,11 @@ const App: React.FC = () => {
       first_name: tgData?.first_name!,
       username: tgData?.username || '',
       language_code: tgData?.language_code!,
-      profitPerHour: 0
+      profitPerHour: 0,
+      coin: 0,
+      minerData: { ceo: 0, marketing: 0 }
     };
+
     setUserData(userDatas);
     setTelegramData(true);
     console.log("telegram data değişti");
@@ -240,7 +248,10 @@ const App: React.FC = () => {
               first_name: userData?.first_name,
               language_code: userData?.language_code,
               username: userData?.username,
-              telegramID: userData?.telegramID
+              telegramID: userData?.telegramID,
+              minerData: userData?.minerData,
+              coin: userData?.coin,
+              profitPerHour: userData?.profitPerHour
             }
             setUserData(updatedData as UserData);
             console.log(response.data);
@@ -285,15 +296,50 @@ const App: React.FC = () => {
       createToken();
     }
   }, [telegramData]);
+
+
+  const levelUpMiner=async (minerName:string,cost:number,newHourlyProfit:number,telegramID:string,generatedToken:string)=> {
+    try {
+      console.log(minerName);
+      console.log(cost);
+      console.log(newHourlyProfit);
+      console.log(telegramID);
+      console.log(generatedToken);
+      await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
+        updatedData: {
+          minerData: {
+            ceo: minerName=="ceo"?userData?.minerData.ceo!+1:userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
+            
+            marketing: minerName=="marketing"?userData?.minerData.marketing!+1:userData?.minerData.marketing!,
+          },
+          coin:(userData?.coin!-cost),
+          profitPerHour: newHourlyProfit
+        }
+      }, {
+        headers: {
+          Authorization: `Bearer ${generatedToken}`,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleButtonClick = () => {
     setIsModalOpen(true);
-};
+  };
 
-const handleCloseModal = () => {
-    setIsModalOpen(false);
-};
-console.log(isModalOpen);
+  const handleCloseModal = () => {
+
+    const timer = setTimeout(() => {
+      setIsModalOpen(false);
+    }, 100); // 0.3 saniye
+    return () => clearTimeout(timer);
+
+  };
+  console.log(isModalOpen);
   // Define your different screen components
   const ExchangeScreen = () =>
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
@@ -339,9 +385,24 @@ console.log(isModalOpen);
       </div>
     </div>;
 
+  interface PurchaseModalData {
+    image: string;
+    name: string;
+    desc: string;
+    profitPerHour: number;
+    price: number;
+  }
+  const [modalData, setModalData] = useState<PurchaseModalData>({ desc: "", image: "", name: "", price: 0, profitPerHour: 0 } as PurchaseModalData)
   const MineScreen = () =>
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
-      <PurchaseModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <PurchaseModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        data={modalData!}
+        onClickEvent={() => levelUpMiner(modalData.name.toLowerCase(), modalData.price, modalData.profitPerHour+profitPerHour,userData?.telegramID!,token!)}
+
+      />
+
       <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
         <div className="px-4 mt-6 flex justify-between gap-2">
           <div className="bg-[#1c1f24] min-h-screen p-4 w-full">
@@ -356,86 +417,175 @@ console.log(isModalOpen);
               <TeamCard
                 imageSrc={mineImage1}
                 title="CEO"
-                profitPerHour="321"
-                level="3"
-                totalProfit="1,55K"
-                onClickEvent={()=>handleButtonClick()}
+                profitPerHour="3,6K"
+                level={userData?.minerData.ceo ? userData.minerData.ceo : 0}
+                totalProfit="100"
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="Marketing"
-                profitPerHour="225"
-                level="3"
-                totalProfit="1,55K"
-                isLocked={true}
-                onClickEvent={()=>console.log("1")}
+                profitPerHour="200"
+                level={userData?.minerData.marketing ? userData.minerData.marketing : 0}
+                totalProfit="7,2K"
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "Marketing",
+                    price: 200,
+                    profitPerHour: 7200
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="IT Team"
                 profitPerHour="772"
-                level="3"
+                level={0}
                 totalProfit="3,1K"
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="Support Team"
                 profitPerHour="145"
-                level="2"
+                level={0}
                 totalProfit="957"
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="HamsterBook"
                 profitPerHour="70"
-                level="1"
+                level={0}
                 totalProfit="551"
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="HamsterTube"
                 profitPerHour="90"
-                level="0"
-                totalProfit="HamsterBook lvl 5"
+                level={0}
+                totalProfit="100"
                 isLocked={true}
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="X"
                 profitPerHour="80"
-                level="0"
+                level={0}
                 totalProfit="550"
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="Cointelegraph"
                 profitPerHour="40"
-                level="0"
+                level={0}
                 totalProfit="350"
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="Cointelegraph"
                 profitPerHour="40"
-                level="0"
+                level={0}
                 totalProfit="350"
                 isLocked={true}
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
               <TeamCard
                 imageSrc={mineImage1}
                 title="TikTok"
                 profitPerHour="100"
-                level="0"
-                totalProfit="HamsterGram lvl 3"
+                level={0}
+                totalProfit="500"
                 isLocked={true}
-                onClickEvent={()=>console.log("1")}
+                onClickEvent={() => {
+                  setModalData({
+                    image: mineImage1,
+                    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ",
+                    name: "CEO",
+                    price: 100,
+                    profitPerHour: 3600
+                  } as PurchaseModalData);
+                  handleButtonClick();
+                }}
               />
             </div>
           </div>
@@ -467,7 +617,7 @@ console.log(isModalOpen);
       <div className="bg-black flex justify-center">
         <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
           <div className="px-4 z-10">
-            <div className="flex items-center space-x-2 pt-4">
+            {/* <div className="flex items-center space-x-2 pt-4">
               <div className="p-1 rounded-lg bg-[#1d2025]">
                 <Hamster size={24} className="text-[#d4d4d4]" />
               </div>
@@ -475,8 +625,8 @@ console.log(isModalOpen);
                 <p className="text-sm">{userData?.first_name} ({userData?.telegramID})</p>
                 <p className="text-sm">{userData?.language_code} ({userData?.username})</p>
               </div>
-            </div>
-            <div className="flex items-center justify-between space-x-4 mt-1">
+            </div> */}
+            <div className="flex items-center pt-3 justify-between space-x-4 mt-1">
               <div className="flex items-center w-1/3">
                 <div className="w-full">
                   <div className="flex justify-between">
@@ -525,7 +675,7 @@ console.log(isModalOpen);
           })()}
         </div>
         {/* Bottom fixed div */}
-        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#272a2f] flex justify-around items-center z-50 rounded-3xl text-xs">
+        <div className={`fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#272a2f] justify-around items-center z-20  rounded-3xl text-xs ${isModalOpen ? "hidden" : "flex"}`}>
           <div onClick={() => setCurrentScreen("exchange")} className="text-center text-[#85827d] w-1/5 bg-[#1c1f24] m-1 p-2 rounded-2xl">
             <img src={binanceLogo} alt="Exchange" className="w-8 h-8 mx-auto" />
             <p className="mt-1">Exchange</p>

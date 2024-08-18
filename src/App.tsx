@@ -430,9 +430,9 @@ const App: React.FC = () => {
                   key={index}
                   imageSrc={miner.imageSrc}
                   title={miner.name}
-                  profitPerHour={miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]?miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString():"999"}
+                  profitPerHour={miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString() || '999'}
                   level={userData?.minerData.ceo ? userData.minerData.ceo : 0}
-                  priceByLevel={miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0]?miner.profitByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString():"999"}
+                  priceByLevel={miner.priceByLevel[userData?.minerData.ceo ? userData.minerData.ceo : 0].toString() || '999'}
                   onClickEvent={() => {
                     setModalData({
                       image: miner.imageSrc,

@@ -45,7 +45,6 @@ const App: React.FC = () => {
     language_code: string;
     profitPerHour: number;
     minerData: MinerData;
-    coin: number;
   }
   interface MinerData {
     ceo: number;
@@ -59,7 +58,6 @@ const App: React.FC = () => {
       username: tgData?.username || '',
       language_code: tgData?.language_code!,
       profitPerHour: 0,
-      coin: 0,
       minerData: { ceo: 0, marketing: 0 }
     };
 
@@ -250,7 +248,6 @@ const App: React.FC = () => {
               username: userData?.username,
               telegramID: userData?.telegramID,
               minerData: userData?.minerData,
-              coin: userData?.coin,
               profitPerHour: userData?.profitPerHour
             }
             setUserData(updatedData as UserData);
@@ -305,8 +302,7 @@ const App: React.FC = () => {
       console.log(newHourlyProfit);
       console.log(telegramID);
       console.log(userData);
-      console.log(generatedToken);
-      console.log(generatedToken);
+      console.log(pointsRef.current);
       await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
         updatedData: {
           minerData: {
@@ -314,7 +310,7 @@ const App: React.FC = () => {
 
             marketing: minerName == "marketing" ? userData?.minerData.marketing! + 1 : userData?.minerData.marketing!,
           },
-          coin: (userData?.coin! - cost),
+          coin: (pointsRef.current - cost),
           profitPerHour: newHourlyProfit
         }
       }, {
@@ -330,10 +326,10 @@ const App: React.FC = () => {
           ceo: minerName == "ceo" ? userData?.minerData.ceo! + 1 : userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
           marketing: minerName == "marketing" ? userData?.minerData.marketing! + 1 : userData?.minerData.marketing!,
         },
-        coin: (userData?.coin! - cost),
         profitPerHour: newHourlyProfit
       }
       setUserData(updatedData as UserData);
+      setPoints(points-cost);
     } catch (error) {
       console.log(error);
     }

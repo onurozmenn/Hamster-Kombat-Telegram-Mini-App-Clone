@@ -34,6 +34,39 @@ export const minerList: Array<MinerType> = [
         profitRate:1.35,
         requiredMine: "ceo",
         requiredMineLevel: 5
+    }, {
+        imageSrc: mineImage1,
+        dbName: "marketing",
+        name: "Marketing",
+        desc: "Lorem ipsum bla bla bla marketing",
+        basePrice: 100,
+        baseProfit: 10,
+        priceRate:1.45,
+        profitRate:1.35,
+        requiredMine: "ceo",
+        requiredMineLevel: 5
+    }, {
+        imageSrc: mineImage1,
+        dbName: "marketing",
+        name: "Marketing",
+        desc: "Lorem ipsum bla bla bla marketing",
+        basePrice: 100,
+        baseProfit: 10,
+        priceRate:1.45,
+        profitRate:1.35,
+        requiredMine: "ceo",
+        requiredMineLevel: 5
+    }, {
+        imageSrc: mineImage1,
+        dbName: "marketing",
+        name: "Marketing",
+        desc: "Lorem ipsum bla bla bla marketing",
+        basePrice: 100,
+        baseProfit: 10,
+        priceRate:1.45,
+        profitRate:1.35,
+        requiredMine: "ceo",
+        requiredMineLevel: 5
     }];
 
 export type MinerData = {

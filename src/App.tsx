@@ -72,6 +72,8 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true); // Loading state
   const [telegramData, setTelegramData] = useState<Boolean | null>(null);
   const [levelIndex, setLevelIndex] = useState(0);
+  const [shakeScreen, setshakeScreen] = useState("");
+  const [shakeScreenRev, setshakeScreenRev] = useState("");
   const [points, setPoints] = useState(0);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 1;
@@ -312,7 +314,7 @@ const App: React.FC = () => {
   const ExchangeScreen = () =>
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
       <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
-        <div className="px-4 mt-6 flex justify-between gap-2">
+        <div className={`px-4 mt-6 flex justify-between gap-2 ${shakeScreen}`}>
           <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
             <div className="dot"></div>
             <img src={dailyReward} alt="Daily Reward" className="mx-auto w-12 h-12" />
@@ -333,14 +335,14 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        <div className="px-4 mt-4 flex justify-center">
+        <div className={`px-4 mt-4 flex justify-center ${shakeScreenRev}`}>
           <div className="px-4 py-2 flex items-center space-x-2">
             <img src={dollarCoin} alt="Dollar Coin" className="w-10 h-10" />
             <p className="text-4xl text-white">{points.toLocaleString()}</p>
           </div>
         </div>
 
-        <div className="px-4 mt-4 flex justify-center">
+        <div className={`px-4 mt-4 flex justify-center ${shakeScreen}`}>
           
           <div
             className="w-80 h-80 p-4 rounded-full circle-outer"
@@ -448,7 +450,7 @@ const App: React.FC = () => {
       <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
         <div className="px-4 mt-6 flex justify-between gap-2">
           <div className="bg-[#1c1f24] min-h-screen p-4 w-full">
-            <div className="flex justify-between mb-4">
+            <div className={`flex justify-between mb-4 ${shakeScreenRev}`}>
               <button className="text-white">PR&Team</button>
               <button className="text-gray-500">Markets</button>
               <button className="text-gray-500">Legal</button>
@@ -461,6 +463,7 @@ const App: React.FC = () => {
                 const { priceByLevel, profitPerHour, profitPerHourNextLevel } = calculateLevelData(miner.basePrice, miner.baseProfit, miner.priceRate, miner.profitRate, level);
                 return (
                   <TeamCard
+                    className={(Math.floor(index / 2) % 2 === 0) ? shakeScreen : shakeScreenRev}
                     key={index}
                     imageSrc={miner.imageSrc}
                     title={miner.name}
@@ -504,7 +507,21 @@ const App: React.FC = () => {
   // Function to handle screen change
   const handleScreenChange = (screen: React.SetStateAction<string>) => {
     setCurrentScreen(screen);
+
   };
+  useEffect(() => {
+    setshakeScreen("animate-shake");
+    setshakeScreenRev("animate-shake-rev");
+    console.log("asd");
+    const timer = setTimeout(() => {
+      setshakeScreen("");
+      setshakeScreenRev("");
+    }, 400); // 0.4 saniye
+    return () => clearTimeout(timer);
+  }, [currentScreen]);
+
+
+
   if (loading) {
 
     return (
@@ -528,7 +545,7 @@ const App: React.FC = () => {
                 <p className="text-sm">{userData?.language_code} ({userData?.username})</p>
               </div>
             </div> */}
-            <div className="flex items-center pt-3 justify-between space-x-4 mt-1">
+            <div className={`flex items-center pt-3 justify-between space-x-4 mt-1 ${shakeScreen}`}>
               <div className="flex items-center w-1/3">
                 <div className="w-full">
                   <div className="flex justify-between">
@@ -576,25 +593,29 @@ const App: React.FC = () => {
             }
           })()}
         </div>
-        {/* Bottom fixed div */}
+        {/* Bottom fixed div
+        
+         bg-[#1c1f24] m-1 p-2 rounded-2xl
+         
+         */}
         <div className={`fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#272a2f] justify-around items-center z-20  rounded-3xl text-xs ${isModalOpen ? "hidden" : "flex"}`}>
-          <div onClick={() => setCurrentScreen("exchange")} className="text-center text-[#85827d] w-1/5 bg-[#1c1f24] m-1 p-2 rounded-2xl">
+          <div onClick={() => setCurrentScreen("exchange")} className={`text-center text-[#85827d] w-1/5 m-1 p-2 ${currentScreen =="exchange"?"bg-[#1c1f24] rounded-2xl":""}`}>
             <img src={binanceLogo} alt="Exchange" className="w-8 h-8 mx-auto" />
             <p className="mt-1">Exchange</p>
           </div>
-          <div onClick={() => setCurrentScreen("mine")} className="text-center text-[#85827d] w-1/5">
+          <div onClick={() => setCurrentScreen("mine")} className={`text-center transition-all duration-200 text-[#85827d] w-1/5 m-1 p-2 ${currentScreen =="mine"?"bg-[#1c1f24] rounded-2xl":""}`}>
             <Mine className="w-8 h-8 mx-auto" />
             <p className="mt-1">Mine</p>
           </div>
-          <div onClick={() => setCurrentScreen("friends")} className="text-center text-[#85827d] w-1/5">
+          <div onClick={() => setCurrentScreen("friends")} className={`text-center transition-all duration-200 text-[#85827d] w-1/5 m-1 p-2 ${currentScreen =="friends"?"bg-[#1c1f24] rounded-2xl":""}`}>
             <Friends className="w-8 h-8 mx-auto" />
             <p className="mt-1">Friends</p>
           </div>
-          <div onClick={() => setCurrentScreen("earn")} className="text-center text-[#85827d] w-1/5">
+          <div onClick={() => setCurrentScreen("earn")} className={`text-center transition-all duration-200 text-[#85827d] w-1/5 m-1 p-2 ${currentScreen =="earn"?"bg-[#1c1f24] rounded-2xl":""}`}>
             <Coins className="w-8 h-8 mx-auto" />
             <p className="mt-1">Earn</p>
           </div>
-          <div onClick={() => setCurrentScreen("airdrop")} className="text-center text-[#85827d] w-1/5">
+          <div onClick={() => setCurrentScreen("airdrop")} className={`text-center transition-all duration-200 ease-in-out text-[#85827d] w-1/5 m-1 p-2 ${currentScreen =="airdrop"?"bg-[#1c1f24] rounded-2xl":""}`}>
             <img src={hamsterCoin} alt="Airdrop" className="w-8 h-8 mx-auto" />
             <p className="mt-1">Airdrop</p>
           </div>

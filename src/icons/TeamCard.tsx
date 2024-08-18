@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { dollarCoin, lockImage } from "../images";
 
 type TeamCardProps = {
+    className?: string;
     imageSrc: string;
     title: string;
     profitPerHour: string;
@@ -14,17 +15,17 @@ type TeamCardProps = {
     onClickEvent: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHour, level, userCoin, priceByLevel,requiredMine="",requiredMineLevel=0, isLocked = false, onClickEvent }) => {
+export const TeamCard: React.FC<TeamCardProps> = ({className="", imageSrc, title, profitPerHour, level, userCoin, priceByLevel,requiredMine="",requiredMineLevel=0, isLocked = false, onClickEvent }) => {
     
     const dollarCoinClass = level === 0 ? "dollar-coin-red" : "";
     const canBuy = userCoin >= parseInt(priceByLevel) ? "" : "dollar-coin-red";
     return(
     
-    <div className="bg-[#292c34] rounded-lg p-4 w-full relative flex flex-col items-center">
+    <div className={`bg-[#292c34] rounded-lg p-4 w-full relative flex flex-col items-center ${className}`}>
         {isLocked && (
             <>
                 <div className="z-10 absolute inset-0 bg-black bg-opacity-70 flex-col flex justify-center items-center rounded-lg">
-                    <img src={lockImage} alt="Locked" className="w-12 h-12 pb-2" />
+                    <img src={lockImage} alt="Locked" className="w-12 h-12 mb-2" />
                     <p>Gerekli:</p>
                     <p>{requiredMine}</p>
                     <p>{requiredMineLevel} lvl</p>

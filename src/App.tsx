@@ -57,6 +57,8 @@ const App: React.FC = () => {
       minerData: { ceo: 0, marketing: 0 }
     };
 
+    WebApp.disableVerticalSwipes();
+    WebApp.enableClosingConfirmation();
     setUserData(userDatas);
     setTelegramData(true);
     console.log("telegram data değişti");

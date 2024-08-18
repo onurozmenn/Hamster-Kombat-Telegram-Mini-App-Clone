@@ -338,7 +338,9 @@ const App: React.FC = () => {
         handleCloseModal();
       }
     } else {
-      WebApp.showAlert("Yeterli paran yok!");
+      WebApp.showAlert("Yeterli paran yok", function() {
+        handleCloseModal();
+    });
     }
   }
 

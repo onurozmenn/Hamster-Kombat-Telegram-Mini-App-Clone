@@ -467,6 +467,7 @@ const App: React.FC = () => {
                     imageSrc={miner.imageSrc}
                     title={miner.name}
                     profitPerHour={profitPerHour.toString()}
+                    userCoin={pointsRef.current}
                     level={level}
                     priceByLevel={priceByLevel.toString()}
                     onClickEvent={() => {

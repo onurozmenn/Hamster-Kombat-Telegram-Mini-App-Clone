@@ -102,7 +102,7 @@ export const PurchaseModal: React.FC<PurchaseModalProps> = ({ isOpen, onClose, d
         {data.desc}
     </p>
     <p className="text-white font-light font-sans text-center pt-2 h-[auto]" style={{display:"ruby"}}>
-        Saat başı gelir: {data.profitPerHour} <img src={dollarCoin} className="h-4 pb-1"></img>
+        Saat başı gelir: +{data.profitPerHour} <img src={dollarCoin} className="h-4 pb-1"></img>
     </p>
     <button onClick={onClickEvent} style={{display:"ruby"}} className="absolute bottom-[40px] left-1/2 transform -translate-x-1/2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg w-[60%]">
                {data.price} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img> Satın Al

@@ -295,12 +295,7 @@ const App: React.FC = () => {
 
   const levelUpMiner = async (minerName: string, cost: number, newHourlyProfit: number, telegramID: string, generatedToken: string) => {
     try {
-      console.log(minerName);
-      console.log(cost);
-      console.log(newHourlyProfit);
-      console.log(telegramID);
-      console.log(userData);
-      console.log(pointsRef.current);
+      console.log(newHourlyProfit)
       const minerData = minerList.reduce((acc, miner) => {
         const currentLevel = (userData?.minerData!)[miner.dbName] || 0;
         acc[miner.dbName] = minerName === miner.dbName ? currentLevel + 1 : currentLevel;
@@ -399,7 +394,8 @@ const App: React.FC = () => {
   function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
     const priceByLevel = Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
     const profitPerHour = Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
-    return { priceByLevel, profitPerHour };
+    const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level+1));
+    return { priceByLevel, profitPerHour, profitPerHourNextLevel };
   }
   interface PurchaseModalData {
     image: string;
@@ -435,7 +431,7 @@ const App: React.FC = () => {
                 const level = userData?.minerData[miner.dbName] ?? 0;
 
                 // calculateLevelData fonksiyonunu çağırarak fiyat ve saat başı getiri hesapla
-                const { priceByLevel, profitPerHour } = calculateLevelData(miner.basePrice, miner.baseProfit, miner.priceRate, miner.profitRate, level);
+                const { priceByLevel, profitPerHour, profitPerHourNextLevel } = calculateLevelData(miner.basePrice, miner.baseProfit, miner.priceRate, miner.profitRate, level);
 
                 return (
                   <TeamCard
@@ -451,7 +447,7 @@ const App: React.FC = () => {
                         desc: miner.desc,
                         name: miner.name,
                         price: priceByLevel,
-                        profitPerHour: profitPerHour,
+                        profitPerHour: profitPerHourNextLevel-profitPerHour,
                       } as PurchaseModalData);
                       handleButtonClick();
                     }}

@@ -59,6 +59,7 @@ const App: React.FC = () => {
 
     WebApp.disableVerticalSwipes();
     WebApp.enableClosingConfirmation();
+    WebApp.expand();
     setUserData(userDatas);
     setTelegramData(true);
     console.log("telegram data değişti");

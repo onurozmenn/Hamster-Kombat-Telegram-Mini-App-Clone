@@ -20,7 +20,7 @@ export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHo
                 <img src={imageSrc} alt={title} className="w-16 h-16 mb-2" />
                 <h2 className="text-white text-lg font-bold">{title}</h2>
                 <p className="text-gray-400">Saat başı kar</p>
-                <p style={{display:"ruby"}} className="text-yellow-400 font-bold">{profitPerHour} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></p>
+                <p style={{display:"ruby"}} className="text-yellow-400 font-bold">{profitPerHour} <img style={{... level === 0 ? {filter: "hue-rotate(180deg)"} : {}}} src={dollarCoin} className="h-4 pb-1 pr-1" ></img></p>
                 <p className="text-gray-400 text-sm mt-2">lvl {level}</p>
                 <p style={{display:"ruby"}} className="text-yellow-400 font-bold">{priceByLevel} <img src={dollarCoin} className="h-4 pb-1 pr-1"></img></p>
             </>

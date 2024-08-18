@@ -23,8 +23,8 @@ export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHo
     <div className="bg-[#292c34] rounded-lg p-4 w-full relative flex flex-col items-center">
         {isLocked && (
             <>
-                <div className="z-10 absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center rounded-lg">
-                    <img src={lockImage} alt="Locked" className="w-12 h-12" />
+                <div className="z-10 absolute inset-0 bg-black bg-opacity-70 flex-col flex justify-center items-center rounded-lg">
+                    <img src={lockImage} alt="Locked" className="w-12 h-12 pb-2" />
                     <p>Gerekli:</p>
                     <p>{requiredMine}</p>
                     <p>{requiredMineLevel} lvl</p>

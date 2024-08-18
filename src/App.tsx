@@ -11,6 +11,7 @@ import axios from 'axios';
 import WebApp from '@twa-dev/sdk'
 import { PurchaseModal, TeamCard } from './icons/TeamCard';
 import { MinerData, minerList } from './utils/Miners';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 
 const App: React.FC = () => {
   const levelNames = [
@@ -291,7 +292,77 @@ const App: React.FC = () => {
       createToken();
     }
   }, [telegramData]);
+  const handleGesture = Gesture.Tap()
+    .maxDistance(10)
+    .onTouchesDown((event) => {
+      console.log('Touches detected:', event.numberOfTouches);
+    })
+    .onStart(() => {
+      console.log('Gesture started with', 'touches');
+    })
+    .onTouchesMove((event) => {
+      console.log('Touches moving:', event.numberOfTouches);
+    })
+    .onEnd(() => {
+      console.log('Gesture ended with', 'touches');
+    });
 
+  const ExchangeScreen = () =>
+    <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
+      <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
+        <div className="px-4 mt-6 flex justify-between gap-2">
+          <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
+            <div className="dot"></div>
+            <img src={dailyReward} alt="Daily Reward" className="mx-auto w-12 h-12" />
+            <p className="text-[10px] text-center text-white mt-1">Daily reward</p>
+            <p className="text-[10px] font-medium text-center text-gray-400 mt-2">{dailyRewardTimeLeft}</p>
+          </div>
+          <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
+            <div className="dot"></div>
+            <img src={dailyCipher} alt="Daily Cipher" className="mx-auto w-12 h-12" />
+            <p className="text-[10px] text-center text-white mt-1">Daily cipher</p>
+            <p className="text-[10px] font-medium text-center text-gray-400 mt-2">{dailyCipherTimeLeft}</p>
+          </div>
+          <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
+            <div className="dot"></div>
+            <img src={dailyCombo} alt="Daily Combo" className="mx-auto w-12 h-12" />
+            <p className="text-[10px] text-center text-white mt-1">Daily combo</p>
+            <p className="text-[10px] font-medium text-center text-gray-400 mt-2">{dailyComboTimeLeft}</p>
+          </div>
+        </div>
+
+        <div className="px-4 mt-4 flex justify-center">
+          <div className="px-4 py-2 flex items-center space-x-2">
+            <img src={dollarCoin} alt="Dollar Coin" className="w-10 h-10" />
+            <p className="text-4xl text-white">{points.toLocaleString()}</p>
+          </div>
+        </div>
+
+        <div className="px-4 mt-4 flex justify-center">
+
+          <GestureDetector gesture={handleGesture}>
+
+
+            <div
+              className="w-80 h-80 p-4 rounded-full circle-outer"
+              onClick={handleCardClick}
+            >
+              <div className="w-full h-full rounded-full circle-inner">
+                <img src={mainCharacter} alt="Main Character" className="w-full h-full" />
+              </div>
+            </div>
+          </GestureDetector>
+        </div>
+      </div>
+    </div>;
+
+
+  function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
+    const priceByLevel = Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
+    const profitPerHour = Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
+    const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level + 1));
+    return { priceByLevel, profitPerHour, profitPerHourNextLevel };
+  }
 
   const levelUpMiner = async (minerName: string, cost: number, newHourlyProfit: number, telegramID: string, generatedToken: string) => {
     if (pointsRef.current >= cost) {
@@ -338,14 +409,14 @@ const App: React.FC = () => {
         handleCloseModal();
       }
     } else {
-      WebApp.showAlert("Yeterli paran yok", function() {
+      WebApp.showAlert("Yeterli paran yok", function () {
         handleCloseModal();
-    });
+      });
     }
   }
 
-
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleButtonClick = () => {
     setIsModalOpen(true);
   };
@@ -359,57 +430,7 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
 
   };
-  console.log(isModalOpen);
-  // Define your different screen components
-  const ExchangeScreen = () =>
-    <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
-      <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
-        <div className="px-4 mt-6 flex justify-between gap-2">
-          <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
-            <div className="dot"></div>
-            <img src={dailyReward} alt="Daily Reward" className="mx-auto w-12 h-12" />
-            <p className="text-[10px] text-center text-white mt-1">Daily reward</p>
-            <p className="text-[10px] font-medium text-center text-gray-400 mt-2">{dailyRewardTimeLeft}</p>
-          </div>
-          <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
-            <div className="dot"></div>
-            <img src={dailyCipher} alt="Daily Cipher" className="mx-auto w-12 h-12" />
-            <p className="text-[10px] text-center text-white mt-1">Daily cipher</p>
-            <p className="text-[10px] font-medium text-center text-gray-400 mt-2">{dailyCipherTimeLeft}</p>
-          </div>
-          <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
-            <div className="dot"></div>
-            <img src={dailyCombo} alt="Daily Combo" className="mx-auto w-12 h-12" />
-            <p className="text-[10px] text-center text-white mt-1">Daily combo</p>
-            <p className="text-[10px] font-medium text-center text-gray-400 mt-2">{dailyComboTimeLeft}</p>
-          </div>
-        </div>
 
-        <div className="px-4 mt-4 flex justify-center">
-          <div className="px-4 py-2 flex items-center space-x-2">
-            <img src={dollarCoin} alt="Dollar Coin" className="w-10 h-10" />
-            <p className="text-4xl text-white">{points.toLocaleString()}</p>
-          </div>
-        </div>
-
-        <div className="px-4 mt-4 flex justify-center">
-          <div
-            className="w-80 h-80 p-4 rounded-full circle-outer"
-            onClick={handleCardClick}
-          >
-            <div className="w-full h-full rounded-full circle-inner">
-              <img src={mainCharacter} alt="Main Character" className="w-full h-full" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>;
-  function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
-    const priceByLevel = Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
-    const profitPerHour = Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
-    const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level + 1));
-    return { priceByLevel, profitPerHour, profitPerHourNextLevel };
-  }
   interface PurchaseModalData {
     image: string;
     name: string;
@@ -417,7 +438,9 @@ const App: React.FC = () => {
     profitPerHour: number;
     price: number;
   }
+
   const [modalData, setModalData] = useState<PurchaseModalData>({ desc: "", image: "", name: "", price: 0, profitPerHour: 0 } as PurchaseModalData)
+
   const MineScreen = () =>
     <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
       <PurchaseModal

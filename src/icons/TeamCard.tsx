@@ -15,7 +15,7 @@ type TeamCardProps = {
 export const TeamCard: React.FC<TeamCardProps> = ({ imageSrc, title, profitPerHour, level, userCoin, priceByLevel, isLocked = false, onClickEvent }) => {
     
     const dollarCoinClass = level === 0 ? "dollar-coin-red" : "";
-    const canBuy = userCoin >= parseInt(priceByLevel) ? "dollar-coin-red" : "";
+    const canBuy = userCoin >= parseInt(priceByLevel) ? "" : "dollar-coin-red";
     return(
     
     <div className="bg-[#292c34] rounded-lg p-4 w-full relative flex flex-col items-center">

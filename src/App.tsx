@@ -383,10 +383,8 @@ const App: React.FC = () => {
           first_name: userData?.first_name,
           language_code: userData?.language_code,
           username: userData?.username,
-          telegramID: userData?.telegramID, minerData: {
-            ceo: minerName == "ceo" ? userData?.minerData.ceo! + 1 : userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
-            marketing: minerName == "marketing" ? userData?.minerData.marketing! + 1 : userData?.minerData.marketing!,
-          },
+          telegramID: userData?.telegramID, 
+          minerData: minerData,
           profitPerHour: newHourlyProfit
         }
         setUserData(updatedData as UserData);
@@ -470,6 +468,12 @@ const App: React.FC = () => {
                     userCoin={pointsRef.current}
                     level={level}
                     priceByLevel={priceByLevel.toString()}
+                    isLocked={!miner.requiredMine || 
+                      !miner.requiredMineLevel ||
+                      userData?.minerData[miner.requiredMine] === undefined ||
+                      userData?.minerData[miner.requiredMine] >= miner.requiredMineLevel
+                        ? false
+                        : true}
                     onClickEvent={() => {
                       setModalData({
                         image: miner.imageSrc,

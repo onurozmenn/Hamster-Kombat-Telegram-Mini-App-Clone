@@ -294,47 +294,61 @@ const App: React.FC = () => {
 
 
   const levelUpMiner = async (minerName: string, cost: number, newHourlyProfit: number, telegramID: string, generatedToken: string) => {
-    try {
-      setLoading(true);
-      console.log(newHourlyProfit)
-      const minerData = minerList.reduce((acc, miner) => {
-        const currentLevel = (userData?.minerData!)[miner.dbName] || 0;
-        acc[miner.dbName] = minerName === miner.dbName ? currentLevel + 1 : currentLevel;
-        return acc;
-      }, {} as Record<string, number>);
+    if (pointsRef.current >= cost) {
+      try {
+        setLoading(true);
+        console.log(newHourlyProfit)
+        const minerData = minerList.reduce((acc, miner) => {
+          const currentLevel = (userData?.minerData!)[miner.dbName] || 0;
+          acc[miner.dbName] = minerName === miner.dbName ? currentLevel + 1 : currentLevel;
+          return acc;
+        }, {} as Record<string, number>);
 
-      await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
-        updatedData: {
+        await axios.put(`https://hamster-kombat-telegram-mini-app-clone-sand.vercel.app/api/users?ids=${telegramID}`, {
+          updatedData: {
 
-          minerData,
-          coin: (pointsRef.current - cost),
+            minerData,
+            coin: (pointsRef.current - cost),
+            profitPerHour: newHourlyProfit
+          }
+        }, {
+          headers: {
+            Authorization: `Bearer ${generatedToken}`,
+          },
+        });
+        const updatedData = {
+          first_name: userData?.first_name,
+          language_code: userData?.language_code,
+          username: userData?.username,
+          telegramID: userData?.telegramID, minerData: {
+            ceo: minerName == "ceo" ? userData?.minerData.ceo! + 1 : userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
+            marketing: minerName == "marketing" ? userData?.minerData.marketing! + 1 : userData?.minerData.marketing!,
+          },
           profitPerHour: newHourlyProfit
         }
-      }, {
-        headers: {
-          Authorization: `Bearer ${generatedToken}`,
-        },
-      });
-      const updatedData = {
-        first_name: userData?.first_name,
-        language_code: userData?.language_code,
-        username: userData?.username,
-        telegramID: userData?.telegramID, minerData: {
-          ceo: minerName == "ceo" ? userData?.minerData.ceo! + 1 : userData?.minerData.ceo!, // Burada `ceo` değeri güncelleniyor.
-          marketing: minerName == "marketing" ? userData?.minerData.marketing! + 1 : userData?.minerData.marketing!,
-        },
-        profitPerHour: newHourlyProfit
+        setUserData(updatedData as UserData);
+        setPoints(points - cost);
+        setProfitPerHour(newHourlyProfit);
+
+      } catch (error) {
+        console.log(error);
+      } finally {
+
+        setLoading(false);
+        handleCloseModal();
       }
-      setUserData(updatedData as UserData);
-      setPoints(points - cost);
-      setProfitPerHour(newHourlyProfit);
-      
-    } catch (error) {
-      console.log(error);
-    }finally{
-      
-      setLoading(false);
-      handleCloseModal();
+    }else{
+      WebApp.showPopup({
+        message: "Yeterli paran yok",
+        buttons: [
+            {id: '1', type: 'default', text: 'Tamam'},
+        ]
+    }, function(button_id) {
+        if (button_id === '1') {
+            // Tamam butonuna tıklanınca yapılacak işlemler
+            console.log("Tamam'a tıklandı!");
+        }
+    });
     }
   }
 
@@ -401,7 +415,7 @@ const App: React.FC = () => {
   function calculateLevelData(initialPrice: number, initialProfit: number, priceIncreaseRate: number, profitIncreaseRate: number, level: number) {
     const priceByLevel = Math.round(initialPrice * Math.pow(priceIncreaseRate, level));
     const profitPerHour = Math.round(initialProfit * Math.pow(profitIncreaseRate, level));
-    const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level+1));
+    const profitPerHourNextLevel = Math.round(initialProfit * Math.pow(profitIncreaseRate, level + 1));
     return { priceByLevel, profitPerHour, profitPerHourNextLevel };
   }
   interface PurchaseModalData {
@@ -454,7 +468,7 @@ const App: React.FC = () => {
                         desc: miner.desc,
                         name: miner.name,
                         price: priceByLevel,
-                        profitPerHour: profitPerHourNextLevel-profitPerHour,
+                        profitPerHour: profitPerHourNextLevel - profitPerHour,
                       } as PurchaseModalData);
                       handleButtonClick();
                     }}

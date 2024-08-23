@@ -41,13 +41,16 @@ const App: React.FC = () => {
   const [referralCode, setReferralCode] = useState("");
 
   useEffect(() => {
-    const queryParams = new URLSearchParams(window.location.search);
-    const code = queryParams.get('start'); // ?start=referralCode
+    // Telegram WebApp API'si aracılığıyla parametreleri yakalayın
+    const telegramWebApp = WebApp;
 
-    if (code) {
-      setReferralCode(code);
-      console.log("Referral Code:", code);
+    // Telegram tarafından gönderilen referans kodunu alın
+    const startParam = telegramWebApp.initDataUnsafe.start_param;
+
+    if (startParam) {
+      setReferralCode(startParam);
       console.log("Referral Code:", referralCode);
+      console.log("Referral Code:", startParam);
     }
   }, []);
 

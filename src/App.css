@@ -1,7 +1,13 @@
 .progress-gradient {
   background: linear-gradient(to right, #90ef89, #d692dd, #726edd);
 }
-
+* {
+  user-select: none; /* Seçimi engeller */
+  -webkit-user-select: none; /* Safari/Chrome için */
+  -moz-user-select: none; /* Firefox için */
+  -ms-user-select: none; /* IE/Edge için */
+  -webkit-user-drag: none;
+}
 .top-glow {
   box-shadow: 0 -26px 20px rgba(243, 186, 47, 0.3);
 }
@@ -20,21 +26,54 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}@keyframes scale {
+  0% { transform: scale(100%); }
+  50% { transform: scale(103%); }
+  100% { transform: scale(100%); }
 }
 @keyframes shake {
-  0% { transform: translateX(-2px); }
-  25% { transform: translateX(2px); }
-  50% { transform: translateX(-2px); }
-  75% { transform: translateX(2px); }
+  0% { transform: translateX(-10px); }
+  100% { transform: translateX(0); }
+}
+@keyframes shake-reverse {
+  0% { transform: translateX(10px); }
   100% { transform: translateX(0); }
 }
 .animate-shake {
-  animation: shake 0.4s ease-out;
+  animation: shake 0.2s ease-out;
 }
 .animate-shake-rev {
-  animation: shake 0.4s ease-out reverse;
+  animation: shake-reverse 0.2s ease-out;
+}
+.animate-scale-inf {
+  animation: scale 1s infinite;
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes bounce {
+  0% { transform: translateY(40%); scale: 20%; }
+  100% { transform: translateY(0); scale: 100%;  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.2s ease-in-out;
+}
+
+.animate-bounce {
+  animation: bounce 0.2s ease-in;
+}
 /* Loading ekranı stil */
 .loading-screen {
   display: flex;

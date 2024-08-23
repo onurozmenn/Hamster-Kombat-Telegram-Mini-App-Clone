@@ -8,6 +8,7 @@ import mainCharacter from "./main-character.png";
 import hamsterCoin from "./hamster-coin.png";
 import mineImage1 from "./mineImage1.png";
 import lockImage from "./lock.png";
+import giftBox from "./giftbox.png";
 
 export {
     hamsterExchange,
@@ -19,5 +20,6 @@ export {
     mainCharacter,
     hamsterCoin,
     mineImage1,
-    lockImage
+    lockImage,
+    giftBox
 };

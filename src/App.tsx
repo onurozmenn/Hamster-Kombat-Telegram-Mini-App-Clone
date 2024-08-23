@@ -38,7 +38,21 @@ const App: React.FC = () => {
     1000000000// Lord
   ];
 
+  const [referralCode, setReferralCode] = useState("");
 
+  useEffect(() => {
+    // Telegram WebApp API'si aracılığıyla parametreleri yakalayın
+    const telegramWebApp = WebApp;
+
+    // Telegram tarafından gönderilen referans kodunu alın
+    const startParam = telegramWebApp.initDataUnsafe.start_param;
+
+    if (startParam) {
+      setReferralCode(startParam);
+      console.log("Referral Code:", referralCode);
+      console.log("Referral Code:", referralCode);
+    }
+  }, []);
 
   interface UserData {
     telegramID: string;
@@ -71,7 +85,7 @@ const App: React.FC = () => {
 
   const [userData, setUserData] = useState<UserData | null>(null)
   const [token, setToken] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(false); // Loading state
   const [telegramData, setTelegramData] = useState<Boolean | null>(null);
   const [levelIndex, setLevelIndex] = useState(0);
   const [points, setPoints] = useState(0);
@@ -82,7 +96,6 @@ const App: React.FC = () => {
   const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
 
-  
 
   const [animate, setAnimate] = useState("");
 
